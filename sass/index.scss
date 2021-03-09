@@ -36,7 +36,7 @@ html {
     margin: $margin-padding-default-value;
     padding: $margin-padding-default-value;
     overflow-x: hidden;
-    background-image: map.get($colors, "background");
+    background-image: map-get($colors, "background");
 }
 
 section {
@@ -63,10 +63,10 @@ input[type=text] input[type=password] {
     padding: $input-padding;
     margin: $input-margin;
     box-sizing: border-box;
-    border: $input-border-bottom solid map.get($colors, "rosewood");
+    border: $input-border-bottom solid map-get($colors, "rosewood");
     [type=submit] {
         &:hover {
-            color: map.get($colors, "carrot_orange");
+            color: map-get($colors, "carrot_orange");
         }
     }
 }
@@ -80,15 +80,15 @@ img {
 }
 
 h4 {
-    color: map.get($colors, "dark_sienna");
+    color: map-get($colors, "dark_sienna");
 }
 
 label {
-    color: map.get($colors, "dark_sienna");
+    color: map-get($colors, "dark_sienna");
 }
 
 a {
-    color: map.get($colors, "dark_sienna");
+    color: map-get($colors, "dark_sienna");
     text-decoration: none;
 }
 
@@ -102,12 +102,12 @@ a {
 }
 
 .btn-default {
-    background-color: map.get($colors, "xiketic");
+    background-color: map-get($colors, "xiketic");
     color: $text-section-color;
 }
 
 .btn-optional {
-    background-color: map.get($colors, "carrot_orange");
+    background-color: map-get($colors, "carrot_orange");
     color: $text-section-color;
 }
 
