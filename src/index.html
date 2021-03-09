@@ -134,14 +134,32 @@
     </section>
 
     <!-- Authorized User Views -->
-
-    <nav id="navbar" class="nav justify-content-center">
-        <a class="nav-link disabled" href="javascript:void(0);"><strong>≡</strong></a>
+    <nav id="navbar" class="navbar">
+        <div class="container w-100">
+            <div class="row w-100">
+                <div class="col-2">
+                    <a id="btn_nav_menu" class="navbar-brand" href="javascript:void(0);">
+                        <svg viewBox="0 0 100 100" width="30" height="30">
+                            <rect width="100" height="20"></rect>
+                            <rect y="30" width="100" height="20"></rect>
+                            <rect y="60" width="100" height="20"></rect>
+                        </svg>
+                    </a>
+                    <a id="btn_volver" class="navbar-brand" href="javascript:void(0);">
+                        <img src="../img/back-arrow.png" class="arrow">
+                    </a>
+                </div>
+                <div class="col-6">
+                    <strong>
+                        Tavola Libera
+                    </strong>
+                </div>
+            </div>
+        </div>
     </nav>
 
     <section id="lista_restaurantes" class="overflow-auto ocultar">
-
-        <h2 class=" text-center px-4 my-4">Lista Restaurantes</h2>
+        <h2 class=" text-center px-4 mb-4">Lista Restaurantes</h2>
         <div class="container">
             <div class="row">
                 <div class="col border-top pt-3">

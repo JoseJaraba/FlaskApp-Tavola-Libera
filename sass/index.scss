@@ -3,7 +3,7 @@ $margin-padding-default-value: 0;
 $navbar-height: 40px;
 $section-margin-left-right-value: 1%;
 $section-height: 736px;
-$section-width: 98%;
+$section-width: 100%;
 $text-section-color: #FFF;
 $select-width: 100%;
 $select-padding: 12px 20px;
@@ -36,16 +36,15 @@ html {
     margin: $margin-padding-default-value;
     padding: $margin-padding-default-value;
     overflow-x: hidden;
+    background-image: map.get($colors, "background");
 }
 
 section {
     height: $section-height - $navbar-height;
     width: $section-width;
     border-style: solid;
-    background-image: map.get($colors, "background");
     color: $text-section-color;
-    margin-left: $section-margin-left-right-value;
-    margin-right: $section-margin-left-right-value;
+    background: none;
     overflow-x: hidden;
 }
 
@@ -130,4 +129,10 @@ a {
     font-family: $splash-font-stack;
     font-size: $splash-font-size;
     color: $splash-text-color;
+}
+
+#navbar {
+    height: $navbar-height;
+    max-height: $navbar-height;
+    background: none;
 }

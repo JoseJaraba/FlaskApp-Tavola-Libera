@@ -1,6 +1,8 @@
 var splash, login, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, navbar;
 var btn_ingresar, btn_reset, btn_registro, btn_cont_reset, btn_confirm_login, btn_confirm_login_2, btn_confirm_login_3, btns_volver, btn_restaurante, btn_menu, btn_reserva, btn_add_platos;
 var secciones;
+var nav_history = [];
+
 window.onload = () => {
     crearReferencias();
     agregarEventos();
@@ -29,11 +31,10 @@ function crearReferencias() {
     btn_cont_reset = document.getElementById("btn_cont_reset");
     btn_restaurante = document.getElementById("btn_restaurante");
     btn_menu = document.getElementById("btn_menu");
+    btn_volver = document.getElementById("btn_volver");
+    btn_nav_menu = document.getElementById("btn_nav_menu");
     btn_reserva = document.getElementById("btn_reserva");
     btn_add_platos = document.getElementById("btn_add_platos")
-    btns_volver = document.querySelectorAll(".volver");
-
-
     secciones = [splash, login, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva];
 }
 
@@ -49,9 +50,16 @@ function agregarEventos() {
     btn_menu.addEventListener("click", () => { irA(menu); });
     btn_reserva.addEventListener("click", () => { irA(reserva); });
     btn_add_platos.addEventListener("click", () => { irA(menu); });
-    for (var i = 0; i < btns_volver.length; i++) {
-        btns_volver[i].addEventListener("click", () => { irA(login); });
-    }
+    btn_nav_menu.addEventListener("click", () => {
+        //Open Modal
+    });
+    btn_volver.addEventListener("click", () => {
+        nav_history.pop();
+        var last = nav_history.pop();
+        if (nav_history.length > 0) {
+            irA(last, true); //volver
+        }
+    });
 }
 
 function ocultarSecciones() {
@@ -62,6 +70,7 @@ function ocultarSecciones() {
 
 function irA(seccion) {
     navbar_is_visible(seccion); //Comprobar si la navbar debería ser visible en la sección que se va a visitar
+    nav_history.push(seccion);
     ocultarSecciones();
     seccion.classList.remove("ocultar");
 }
@@ -81,6 +90,14 @@ function navbar_is_visible(seccion) {
         navbar.classList.add("ocultar")
     } else {
         navbar.classList.remove("ocultar");
+
+        if (seccion == lista_restaurantes) {
+            btn_nav_menu.classList.remove("ocultar");
+            btn_volver.classList.add("ocultar");
+        } else {
+            btn_nav_menu.classList.add("ocultar");
+            btn_volver.classList.remove("ocultar");
+        }
     }
 
 }

@@ -3,16 +3,15 @@ html {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  background-image: linear-gradient(#DC2F02, #E85D04, #F48C06);
 }
 
 section {
-  height: 736px;
-  width: 98%;
+  height: 696px;
+  width: 100%;
   border-style: solid;
-  background-image: linear-gradient(#DC2F02, #E85D04, #F48C06);
   color: #FFF;
-  margin-left: 1%;
-  margin-right: 1%;
+  background: none;
   overflow-x: hidden;
 }
 
@@ -95,6 +94,12 @@ a {
   font-family: "Arizonia", cursive;
   font-size: 70px;
   color: #000;
+}
+
+#navbar {
+  height: 40px;
+  max-height: 40px;
+  background: none;
 }
 
 /*# sourceMappingURL=main.css.map */
