@@ -26,6 +26,12 @@ $logo-margin-top: 150px;
 $arrow-width: 32.5px;
 $arrow-height: 32.5px;
 $arrow-margin-left: 7px;
+$modal-container-opacity: 0;
+$modal-container-left: 0;
+$restaurant-icon-width: 48px;
+$restaurant-icon-height: 48px;
+$close-icon-width: 48px;
+$close-icon-height: 48px;
 $splash-font-stack: 'Arizonia',
 cursive;
 $splash-font-size: 70px;
@@ -129,6 +135,56 @@ a {
     font-size: $splash-font-size;
     color: $splash-text-color;
 }
+
+.modal-background-container{
+    display: none;
+    background-color: map-get($colors, "xiketic");
+    position: fixed;
+    opacity: $modal-container-opacity;
+    height: $section-height;
+    min-height: $section-height;
+    width: $section-width;
+    min-width: $section-width;
+    overflow: hidden;
+    opacity: 0.8;
+
+}
+
+.modal-container{
+    display: none;
+    background-color: map-get($colors, "orange_web");;
+    position: fixed;
+    pointer-events: none;
+    height: $section-height - $navbar-height;
+    max-height: $section-height - $navbar-height;
+    width: $section-width - 30%;
+    color: $text-section-color;
+    overflow: hidden;
+    max-width: $section-width - 30%;
+}
+
+.show{
+    display: block;
+    top: $navbar-height;
+    left: $modal-container-left;
+    pointer-events: auto;
+    
+}
+
+.restaurant-icon{
+    width: $restaurant-icon-width;
+    height: $restaurant-icon-height;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.close-icon{
+    width: $close-icon-width;
+    height: $close-icon-height;
+    margin-left: auto;
+    margin-right: auto;   
+}
+
 
 #navbar {
     height: $navbar-height;

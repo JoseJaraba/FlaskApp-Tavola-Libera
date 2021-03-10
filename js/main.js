@@ -1,6 +1,8 @@
-var splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2, navbar;
-var btn_ingresar, btn_reset, btn_registro, btn_cont_reset, btn_confirm_login, btn_confirm_login_2, btn_confirm_login_3, btns_volver, btn_restaurante, btn_menu, btn_reserva, btn_add_platos, btn_confirm_reserva_1, btn_form_nuevo_restaurante_continuar, btn_form_nuevo_restaurante_confirmar;
+var splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2, navbar, modal_container, modal_background_container;
+var btn_ingresar, btn_reset, btn_registro, btn_cont_reset, btn_confirm_login, btn_confirm_login_2, btn_confirm_login_3, btns_volver, btn_restaurante, btn_menu, btn_reserva, btn_add_platos, btn_nav_menu, btn_confirm_reserva_1, btn_form_nuevo_restaurante_continuar, btn_form_nuevo_restaurante_confirmar;
+
 var secciones;
+var modal_is_open = false;
 var nav_history = [];
 
 
@@ -27,7 +29,10 @@ function crearReferencias() {
     form_nuevo_restaurante = document.getElementById("form_nuevo_restaurante");
     form_nuevo_restaurante_2 = document.getElementById("form_nuevo_restaurante_2");
     navbar = document.getElementById("navbar");
+    modal_container = document.getElementById("modal_container");
+    modal_background_container = document.getElementById("modal_background_container");
     secciones = [splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2];
+
 
     // Botones
     btn_ingresar = document.getElementById("btn_ingresar");
@@ -41,6 +46,7 @@ function crearReferencias() {
     btn_menu = document.getElementById("btn_menu");
     btn_volver = document.getElementById("btn_volver");
     btn_nav_menu = document.getElementById("btn_nav_menu");
+    btn_close_modal = document.getElementById("btn_close_modal");
     btn_reserva = document.getElementById("btn_reserva");
     btn_add_platos = document.getElementById("btn_add_platos")
     btn_confirm_reserva_1 = document.getElementById("btn_confirm_reserva_1");
@@ -74,9 +80,13 @@ function agregarEventos() {
     btn_form_nuevo_restaurante_continuar.addEventListener("click", () => { irA(form_nuevo_restaurante_2); });
     btn_form_nuevo_restaurante_confirmar.addEventListener("click", () => { irA(restaurante) })
     btn_add_platos.addEventListener("click", () => { irA(menu); });
-    btn_nav_menu.addEventListener("click", () => {
-        logout();
+    btn_nav_menu.addEventListener("click", () => { modal(); });
+    modal_background_container.addEventListener("click", () => {
+        modal_container.classList.remove("show");
+        modal_background_container.classList.remove("show");
+
     });
+
     btn_volver.addEventListener("click", () => {
         nav_history.pop();
         var last = nav_history.pop();
@@ -84,6 +94,18 @@ function agregarEventos() {
             irA(last, true); //volver
         }
     });
+}
+
+function modal() {
+    modal_is_open = !modal_is_open
+    if (modal_is_open) {
+        modal_container.classList.add("show");
+        modal_background_container.classList.add("show");
+    } else {
+        modal_container.classList.remove("show");
+        modal_background_container.classList.remove("show");
+    }
+
 }
 
 function ocultarSecciones() {
