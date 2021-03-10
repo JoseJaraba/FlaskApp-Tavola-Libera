@@ -1,20 +1,21 @@
-var splash, login, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2, navbar;
+var splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2, navbar;
 var btn_ingresar, btn_reset, btn_registro, btn_cont_reset, btn_confirm_login, btn_confirm_login_2, btn_confirm_login_3, btns_volver, btn_restaurante, btn_menu, btn_reserva, btn_add_platos, btn_confirm_reserva_1, btn_form_nuevo_restaurante_continuar, btn_form_nuevo_restaurante_confirmar;
 var secciones;
 var nav_history = [];
+
 
 window.onload = () => {
     crearReferencias();
     agregarEventos();
     setTimeout(() => {
-        nav_history.push(login);
-        irA(login);
+        nav_history.push(login_screen);
+        irA(login_screen);
     }, 2000);
 }
 
 function crearReferencias() {
     splash = document.getElementById("splash");
-    login = document.getElementById("login");
+    login_screen = document.getElementById("login");
     registro = document.getElementById("registro");
     reset = document.getElementById("reset");
     reset_part2 = document.getElementById("reset_part2");
@@ -26,6 +27,7 @@ function crearReferencias() {
     form_nuevo_restaurante = document.getElementById("form_nuevo_restaurante");
     form_nuevo_restaurante_2 = document.getElementById("form_nuevo_restaurante_2");
     navbar = document.getElementById("navbar");
+    secciones = [splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2];
 
     // Botones
     btn_ingresar = document.getElementById("btn_ingresar");
@@ -44,26 +46,36 @@ function crearReferencias() {
     btn_confirm_reserva_1 = document.getElementById("btn_confirm_reserva_1");
     btn_form_nuevo_restaurante_continuar = document.getElementById("btn_form_nuevo_restaurante_continuar");
     btn_form_nuevo_restaurante_confirmar = document.getElementById("btn_form_nuevo_restaurante_confirmar");
-    secciones = [splash, login, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2];
 }
 
 function agregarEventos() {
-    btn_ingresar.addEventListener("click", () => { irA(lista_restaurantes); });
+    btn_ingresar.addEventListener("click", () => {
+        admin_login();
+        irA(lista_restaurantes);
+    });
     btn_reset.addEventListener("click", () => { irA(reset); });
     btn_registro.addEventListener("click", () => { irA(registro); });
-    btn_confirm_login.addEventListener("click", () => { irA(login); });
-    btn_confirm_login_2.addEventListener("click", () => { irA(login); });
-    btn_confirm_login_3.addEventListener("click", () => { irA(login); });
+    btn_confirm_login.addEventListener("click", () => { irA(login_screen); });
+    btn_confirm_login_2.addEventListener("click", () => { irA(login_screen); });
+    btn_confirm_login_3.addEventListener("click", () => { irA(login_screen); });
     btn_cont_reset.addEventListener("click", () => { irA(reset_part2); });
     btn_restaurante.addEventListener("click", () => { irA(restaurante); });
     btn_menu.addEventListener("click", () => { irA(menu); });
     btn_reserva.addEventListener("click", () => { irA(reserva); });
     btn_confirm_reserva_1.addEventListener("click", () => { irA(reserva_2) })
+
+    //TODO
+    //if(is_auth){
+    //    irA(restaurante)
+    //}
+    //else{
+    //  irA(form_nuevo_restaurante)
+    // }
     btn_form_nuevo_restaurante_continuar.addEventListener("click", () => { irA(form_nuevo_restaurante_2); });
     btn_form_nuevo_restaurante_confirmar.addEventListener("click", () => { irA(restaurante) })
     btn_add_platos.addEventListener("click", () => { irA(menu); });
     btn_nav_menu.addEventListener("click", () => {
-        //Open Modal
+        logout();
     });
     btn_volver.addEventListener("click", () => {
         nav_history.pop();
@@ -75,7 +87,7 @@ function agregarEventos() {
 }
 
 function ocultarSecciones() {
-    for (i in secciones) {
+    for (var i = 0; i < secciones.length; i++) {
         secciones[i].classList.add("ocultar");
     }
 }
@@ -95,7 +107,7 @@ function irA(seccion) {
 
 function navbar_is_visible(seccion) {
     if (seccion == splash ||
-        seccion == login ||
+        seccion == login_screen ||
         seccion == registro ||
         seccion == reset ||
         seccion == reset_part2) {
@@ -112,4 +124,31 @@ function navbar_is_visible(seccion) {
         }
     }
 
+}
+
+/*
+
+Auth
+
+*/
+
+var is_auth = false;
+
+function admin_login() {
+    var admin_objects = document.getElementsByClassName("admin_mode");
+    for (let i = 0; i < admin_objects.length; i++) {
+        var element = admin_objects[i];
+        element.style.setProperty("display", "flex", "important");
+    }
+    is_auth = true;
+}
+
+function logout() {
+    var admin_objects = document.getElementsByClassName("admin_mode");
+    for (let i = 0; i < admin_objects.length; i++) {
+        var element = admin_objects[i];
+        element.style.setProperty("display", "none", "important");
+    }
+    is_auth = false;
+    irA(login_screen);
 }

@@ -112,7 +112,7 @@
                 </div>
             </div>
             <div class="form-group row my-4 w-80 mx-auto">
-                <a href=" javascript:void(0);" id="btn_cont_reset" class="btn btn-dark w-80">Continuar</a>
+                <a href=" javascript:void(0);" id="btn_cont_reset" class="btn btn-default w-80">Continuar</a>
             </div>
         </div>
     </section>
@@ -215,8 +215,13 @@
 
         <h2 class=" text-center px-4 my-4">Restaurante</h2>
         <img src="../img/restaurant-logo.png" class="rounded mx-auto d-block" alt="">
-        <p class="text-center px-2">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </p>
+        <div class="text-right">
+            <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode"> <strong> X </strong></a>
+        </div>
+        <p class="text-center px-2">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <div class="text-right">
+            <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode"> <strong> X </strong></a>
+        </div>
 
         <div class="container">
             <div class="row border-top pt-3 pb-2">
@@ -236,7 +241,8 @@
     <section id="menu" class="overflow-auto ocultar">
 
         <h2 class="text-center px-4 my-4">Menú</h2>
-        <div class="container">
+        <!--- Contenedor normal para mostrar información, solo para usuarios y administradores de restaurante -->
+        <div class="container user_mode">
             <div class="row">
                 <div class="col border-top pt-3">
                     <h4 class="text-center px-2">*Nombre del Plato*</h4>
@@ -245,6 +251,10 @@
                     </p>
                 </div>
                 <div class="col">
+                    <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
+                    <div class="text-right">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode"> <strong> X </strong></a>
+                    </div>
                     <img src="../img/dish.png" class="rounded mx-auto d-block" alt="">
                 </div>
             </div>
@@ -259,6 +269,9 @@
                     </p>
                 </div>
                 <div class="col">
+                    <div class="text-right">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode"> <strong> X </strong></a>
+                    </div>
                     <img src="../img/dish.png" class="rounded mx-auto d-block" alt="">
                 </div>
             </div>
@@ -273,6 +286,9 @@
                     </p>
                 </div>
                 <div class="col">
+                    <div class="text-right">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode"> <strong> X </strong></a>
+                    </div>
                     <img src="../img/dish.png" class="rounded mx-auto d-block" alt="">
                 </div>
             </div>
@@ -280,59 +296,10 @@
     </section>
 
     <!-- Version Admin de restaurante -->
-    <section class="overflow-auto ocultar">
-
-        <h2 class="px-4 my-4">Lista Platos</h2>
-        <div class="container">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="px-2">*Nombre del Plato*</h4>
-                    <p class="px-2 my-auto">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
-                </div>
-                <div class="col">
-                    <img src="../img/dish.png" class="rounded mx-auto d-block" alt="Dish Image">
-                    <a href="javascript:void(0);" class="boton volver button button-primary text-right">icono_edit</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="px-2">*Nombre del Plato*</h4>
-                    <p class="px-2 my-auto">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
-                </div>
-                <div class="col">
-                    <img src="../img/dish.png" class="rounded mx-auto d-block" alt="">
-                    <a href="javascript:void(0);" class="boton volver button button-primary text-right">icono_edit</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="px-2">*Nombre del Plato*</h4>
-                    <p class="px-2 my-auto">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
-                </div>
-                <div class="col">
-                    <img src="../img/dish.png" class="rounded mx-auto d-block" alt="">
-                    <a href="javascript:void(0);" class="boton volver button button-primary text-right">icono_edit</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Editing Version -->
     <section class="overflow-auto ocultar">
 
-        <h2 class="px-4 my-4">Lista Restaurantes</h2>
+        <h2 class="px-4 my-4">Menú</h2>
         <div class="container">
             <div class="row">
                 <div class="col border-top pt-3">
