@@ -110,7 +110,7 @@ a {
 
 .modal-container {
   display: none;
-  background-color: #FFF;
+  background-color: #FAA307;
   position: fixed;
   pointer-events: none;
   height: 696px;
@@ -126,6 +126,20 @@ a {
   top: 40px;
   left: 0;
   pointer-events: auto;
+}
+
+.restaurant-icon {
+  width: 48px;
+  height: 48px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.close-icon {
+  width: 48px;
+  height: 48px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #navbar {
