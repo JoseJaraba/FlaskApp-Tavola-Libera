@@ -97,9 +97,12 @@ a {
     text-decoration: none;
 }
 
+
+/*
 .ocultar {
     display: none;
 }
+*/
 
 .volver {
     margin-left: $volver-margin-left;
@@ -136,7 +139,7 @@ a {
     color: $splash-text-color;
 }
 
-.modal-background-container{
+.modal-background-container {
     display: none;
     background-color: map-get($colors, "xiketic");
     position: fixed;
@@ -147,12 +150,12 @@ a {
     min-width: $section-width;
     overflow: hidden;
     opacity: 0.8;
-
 }
 
-.modal-container{
+.modal-container {
     display: none;
-    background-color: map-get($colors, "orange_web");;
+    background-color: map-get($colors, "orange_web");
+    ;
     position: fixed;
     pointer-events: none;
     height: $section-height - $navbar-height;
@@ -163,31 +166,33 @@ a {
     max-width: $section-width - 30%;
 }
 
-.show{
+.show {
     display: block;
     top: $navbar-height;
     left: $modal-container-left;
     pointer-events: auto;
-    
 }
 
-.restaurant-icon{
+.restaurant-icon {
     width: $restaurant-icon-width;
     height: $restaurant-icon-height;
     margin-left: auto;
     margin-right: auto;
 }
 
-.close-icon{
+.close-icon {
     width: $close-icon-width;
     height: $close-icon-height;
     margin-left: auto;
-    margin-right: auto;   
+    margin-right: auto;
 }
-
 
 #navbar {
     height: $navbar-height;
     max-height: $navbar-height;
     background: none;
+}
+
+.pointer_hover:hover {
+    cursor: pointer;
 }
