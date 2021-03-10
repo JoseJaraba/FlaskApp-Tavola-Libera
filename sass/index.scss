@@ -26,6 +26,8 @@ $logo-margin-top: 150px;
 $arrow-width: 32.5px;
 $arrow-height: 32.5px;
 $arrow-margin-left: 7px;
+$modal-container-opacity: 0;
+$modal-container-left: 0;
 $splash-font-stack: 'Arizonia',
 cursive;
 $splash-font-size: 70px;
@@ -42,7 +44,7 @@ html {
 section {
     height: $section-height - $navbar-height;
     width: $section-width;
-    border-style: solid;
+    //border-style: solid;
     color: $text-section-color;
     background: none;
     overflow-x: hidden;
@@ -130,6 +132,42 @@ a {
     font-size: $splash-font-size;
     color: $splash-text-color;
 }
+
+.modal-background-container{
+    display: none;
+    background-color: map-get($colors, "xiketic");
+    position: fixed;
+    opacity: $modal-container-opacity;
+    height: $section-height;
+    min-height: $section-height;
+    width: $section-width;
+    min-width: $section-width;
+    overflow: hidden;
+    opacity: 0.8;
+
+}
+
+.modal-container{
+    display: none;
+    background-color: $text-section-color;
+    position: fixed;
+    pointer-events: none;
+    height: $section-height - $navbar-height;
+    max-height: $section-height - $navbar-height;
+    width: $section-width - 30%;
+    color: $text-section-color;
+    overflow: hidden;
+    max-width: $section-width - 30%;
+}
+
+.show{
+    display: block;
+    top: $navbar-height;
+    left: $modal-container-left;
+    pointer-events: auto;
+    
+}
+
 
 #navbar {
     height: $navbar-height;

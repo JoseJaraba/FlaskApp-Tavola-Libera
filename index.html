@@ -6,23 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
     <title>Tavola Libera</title>
-    <link rel="stylesheet" href="../css/main.min.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Arizonia&family=Montserrat&display=swap" rel="stylesheet">
     <!-- -->
-    <script src="./js/main.min.js" language="javascript" type="text/javascript"></script>
+    <script src="./js/main.js" language="javascript" type="text/javascript"></script>
 
 </head>
 
 <body>
     <section id="splash">
-        <img class="logo" src="../img/logo.svg">
+        <img class="logo" src="img/logo.svg">
         <h2 class="text-center text_splash">Tavola Libera</h2>
     </section>
-    <section id="login">
+    <section class="ocultar" id="login">
         <h1 class="text-center px-4 my-4">Log in</h1>
         <div class="container">
             <div class="form-group row my-4">
@@ -48,7 +49,7 @@
             </small>
         </div>
     </section>
-    <section id="registro">
+    <section class="ocultar" id="registro">
 
         <h2 class="text-center px-4 my-4">Sign Up</h2>
         <div class="container">
@@ -67,7 +68,8 @@
             <div class="form-group row my-4">
                 <label for="example-time-input" class="">Confirmar Contraseña</label>
                 <div class="col-10">
-                    <input class="form-control" type="password" id="example-pass_conf-input" placeholder="confirmar contraseña">
+                    <input class="form-control" type="password" id="example-pass_conf-input"
+                        placeholder="confirmar contraseña">
                 </div>
             </div>
             <div class="form-group my-2">
@@ -124,7 +126,8 @@
             <div class="form-group row my-4">
                 <label for="example-time-input" class="">Confirmar Contraseña</label>
                 <div class="col-10">
-                    <input class="form-control" type="password" id="example-pass_conf-input" placeholder="confirmar contraseña">
+                    <input class="form-control" type="password" id="example-pass_conf-input"
+                        placeholder="confirmar contraseña">
                 </div>
             </div>
             <div class="form-group row my-4 w-80 mx-auto">
@@ -134,7 +137,7 @@
     </section>
 
     <!-- Authorized User Views -->
-    <nav id="navbar" class="navbar">
+    <nav id="navbar" class="navbar ocultar">
         <div class="container w-100">
             <div class="row w-100">
                 <div class="col-2">
@@ -146,7 +149,7 @@
                         </svg>
                     </a>
                     <a id="btn_volver" class="navbar-brand" href="javascript:void(0);">
-                        <img src="../img/back-arrow.png" class="arrow">
+                        <img src="img/back-arrow.png" class="arrow">
                     </a>
                 </div>
                 <div class="col-6">
@@ -157,6 +160,28 @@
             </div>
         </div>
     </nav>
+
+    <div class="modal-background-container" id="modal_background_container">
+    </div>
+
+    <div class="modal-container ocultar" id="modal_container">
+        <div class="row p-2">
+            <div class="col">
+                <img src="./img/tray.png">
+            </div>
+            <div class="col">
+                <a href="#">Soy restaurante</a>
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col">
+                <img src="./img/cancel.png">
+            </div>
+            <div class="col">
+                <a href="#">Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
 
     <section id="lista_restaurantes" class="overflow-auto ocultar">
         <h2 class=" text-center px-4 mb-4">Lista Restaurantes</h2>
@@ -171,7 +196,7 @@
                 <div class="col">
                     <p>
                         <a id="btn_restaurante" href="javascript:void(0);">
-                            <img src="../img/restaurant-logo.png" class="rounded mx-auto d-block" alt="">
+                            <img src="img/restaurant-logo.png" class="rounded mx-auto d-block" alt="">
                         </a>
                     </p>
                 </div>
@@ -187,7 +212,7 @@
                     </p>
                 </div>
                 <div class="col">
-                    <img src="../img/food-serving.png" class="rounded mx-auto d-block" alt="">
+                    <img src="img/food-serving.png" class="rounded mx-auto d-block" alt="">
                 </div>
             </div>
         </div>
@@ -201,7 +226,7 @@
                     </p>
                 </div>
                 <div class="col">
-                    <img src="../img/food-serving.png" class="rounded mx-auto d-block" alt="">
+                    <img src="img/food-serving.png" class="rounded mx-auto d-block" alt="">
                 </div>
             </div>
         </div>
@@ -209,7 +234,7 @@
     <section id="restaurante" class="ocultar">
 
         <h2 class=" text-center px-4 my-4">Restaurante</h2>
-        <img src="../img/restaurant-logo.png" class="rounded mx-auto d-block" alt="">
+        <img src="img/restaurant-logo.png" class="rounded mx-auto d-block" alt="">
         <p class="text-center px-2">Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </p>
 
@@ -240,7 +265,7 @@
                     </p>
                 </div>
                 <div class="col">
-                    <img src="../img/dish.png" class="rounded mx-auto d-block" alt="">
+                    <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
                 </div>
             </div>
         </div>
@@ -254,7 +279,7 @@
                     </p>
                 </div>
                 <div class="col">
-                    <img src="../img/dish.png" class="rounded mx-auto d-block" alt="">
+                    <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
                 </div>
             </div>
         </div>
@@ -268,7 +293,7 @@
                     </p>
                 </div>
                 <div class="col">
-                    <img src="../img/dish.png" class="rounded mx-auto d-block" alt="">
+                    <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
                 </div>
             </div>
         </div>
@@ -287,7 +312,8 @@
                     </p>
                 </div>
                 <div class="col">
-                    <img src="https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" class="rounded mx-auto d-block" alt="Dish Image">
+                    <img src="https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                        class="rounded mx-auto d-block" alt="Dish Image">
                     <a href="javascript:void(0);" class="boton volver button button-primary text-right">icono_edit</a>
                 </div>
             </div>
@@ -302,7 +328,8 @@
                     </p>
                 </div>
                 <div class="col">
-                    <img src="https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" class="rounded mx-auto d-block" alt="">
+                    <img src="https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                        class="rounded mx-auto d-block" alt="">
                     <a href="javascript:void(0);" class="boton volver button button-primary text-right">icono_edit</a>
                 </div>
             </div>
@@ -317,7 +344,8 @@
                     </p>
                 </div>
                 <div class="col">
-                    <img src="https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" class="rounded mx-auto d-block" alt="">
+                    <img src="https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                        class="rounded mx-auto d-block" alt="">
                     <a href="javascript:void(0);" class="boton volver button button-primary text-right">icono_edit</a>
                 </div>
             </div>
@@ -332,15 +360,19 @@
             <div class="row">
                 <div class="col border-top pt-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" value="Nombre del plato">
+                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                            value="Nombre del plato">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" name="" id="" rows="3" value="Lorem ipsum dolor sit amet consectetur adipisicing elit."></textarea>
+                        <textarea class="form-control" name="" id="" rows="3"
+                            value="Lorem ipsum dolor sit amet consectetur adipisicing elit."></textarea>
                     </div>
                 </div>
                 <div class="col h-100">
-                    <img src="https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" class="rounded mx-auto d-block" alt="">
-                    <a href="javascript:void(0);" class="boton volver button button-primary text-right">icono_confirmar</a>
+                    <img src="https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                        class="rounded mx-auto d-block" alt="">
+                    <a href="javascript:void(0);"
+                        class="boton volver button button-primary text-right">icono_confirmar</a>
                 </div>
             </div>
         </div>
@@ -349,15 +381,19 @@
             <div class="row">
                 <div class="col border-top pt-3">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" value="Nombre del plato">
+                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                            value="Nombre del plato">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" name="" id="" rows="3" value="Lorem ipsum dolor sit amet consectetur adipisicing elit."></textarea>
+                        <textarea class="form-control" name="" id="" rows="3"
+                            value="Lorem ipsum dolor sit amet consectetur adipisicing elit."></textarea>
                     </div>
                 </div>
                 <div class="col h-100">
-                    <img src="https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" class="rounded mx-auto d-block" alt="">
-                    <a href="javascript:void(0);" class="boton volver button button-primary text-right">icono_confirmar</a>
+                    <img src="https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+                        class="rounded mx-auto d-block" alt="">
+                    <a href="javascript:void(0);"
+                        class="boton volver button button-primary text-right">icono_confirmar</a>
                 </div>
             </div>
         </div>
@@ -561,13 +597,18 @@
 
             <div class="row form-group">
                 <label for="">Aforo Máximo</label>
-                <input type="text" class="ms-3 w-25 form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                <input type="text" class="ms-3 w-25 form-control" name="" id="" aria-describedby="helpId"
+                    placeholder="">
             </div>
             <input name="" id="" class="btn btn-dark volver w-100 my-4" type="button" value="Confirmar">
         </div>
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
+        integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
+        integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
+        crossorigin="anonymous"></script>
 
 </body>
 
