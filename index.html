@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
+    <link rel="shortcut icon" href="#" />
     <title>Tavola Libera</title>
     <link rel="stylesheet" href="css/main.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -18,6 +18,30 @@
 </head>
 
 <body>
+    <nav id="navbar" class="navbar ocultar">
+        <div class="container w-100">
+            <div class="row w-100">
+                <div class="col-2">
+                    <a id="btn_nav_menu" class="navbar-brand" href="javascript:void(0);">
+                        <svg viewBox="0 0 100 100" width="30" height="30">
+                            <rect width="100" height="20"></rect>
+                            <rect y="30" width="100" height="20"></rect>
+                            <rect y="60" width="100" height="20"></rect>
+                        </svg>
+                    </a>
+                    <a id="btn_volver" class="navbar-brand" href="javascript:void(0);">
+                        <img src="img/back-arrow.png" class="arrow">
+                    </a>
+                </div>
+                <div class="col-6">
+                    <strong>
+                        Tavola Libera
+                    </strong>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <section id="splash">
         <img class="logo" src="img/logo.svg">
         <h2 class="text-center text_splash">Tavola Libera</h2>
@@ -28,13 +52,13 @@
             <div class="form-group row my-4">
                 <label for="example-date-input" class="">Usuario</label>
                 <div class="col-10">
-                    <input class="form-control" type="text" placeholder="usuario">
+                    <input class="form-control" type="text">
                 </div>
             </div>
             <div class="form-group row my-4">
                 <label for="example-time-input" class="">Contraseña</label>
                 <div class="col-10">
-                    <input class="form-control" type="password" placeholder="contraseña">
+                    <input class="form-control" type="password">
                 </div>
             </div>
             <div class="form-group row my-4 w-100 mx-auto">
@@ -55,19 +79,19 @@
             <div class="form-group row my-4">
                 <label for="example-date-input" class="">Usuario</label>
                 <div class="col-10">
-                    <input class="form-control" type="text" id="example-user-input" placeholder="username">
+                    <input class="form-control" type="text" id="example-user-input">
                 </div>
             </div>
             <div class="form-group row my-4">
                 <label for="example-time-input" class="">Contraseña</label>
                 <div class="col-10">
-                    <input class="form-control" type="password" id="example-pass-input" placeholder="contraseña">
+                    <input class="form-control" type="password" id="example-pass-input">
                 </div>
             </div>
             <div class="form-group row my-4">
                 <label for="example-time-input" class="">Confirmar Contraseña</label>
                 <div class="col-10">
-                    <input class="form-control" type="password" id="example-pass_conf-input" placeholder="confirmar contraseña">
+                    <input class="form-control" type="password" id="example-pass_conf-input">
                 </div>
             </div>
             <div class="form-group row my-4">
@@ -84,7 +108,7 @@
             <div class="form-group row my-4">
                 <label for="example-time-input" class="">Respuesta</label>
                 <div class="col-10">
-                    <input class="form-control" type="text" id="security_answer" placeholder="">
+                    <input class="form-control" type="text" id="security_answer">
                 </div>
             </div>
             <div class="form-group row my-4 w-80 mx-auto">
@@ -141,29 +165,7 @@
     </section>
 
     <!-- Authorized User Views -->
-    <nav id="navbar" class="navbar ocultar">
-        <div class="container w-100">
-            <div class="row w-100">
-                <div class="col-2">
-                    <a id="btn_nav_menu" class="navbar-brand" href="javascript:void(0);">
-                        <svg viewBox="0 0 100 100" width="30" height="30">
-                            <rect width="100" height="20"></rect>
-                            <rect y="30" width="100" height="20"></rect>
-                            <rect y="60" width="100" height="20"></rect>
-                        </svg>
-                    </a>
-                    <a id="btn_volver" class="navbar-brand" href="javascript:void(0);">
-                        <img src="img/back-arrow.png" class="arrow">
-                    </a>
-                </div>
-                <div class="col-6">
-                    <strong>
-                        Tavola Libera
-                    </strong>
-                </div>
-            </div>
-        </div>
-    </nav>
+
 
     <div class="modal-background-container" id="modal_background_container">
     </div>
@@ -344,19 +346,19 @@
                 </div>
             </div>
             <div class="form-group row my-4">
-                <label for="example-number-input" class="">Numero de Personas</label>
+                <label for="example-number-input" class="">Numero de Persona(s)</label>
                 <div class="col-10">
-                    <input class="form-control" type="number" value="42" id="example-number-input">
+                    <input class="form-control" type="number" value="1" id="example-number-input">
                 </div>
             </div>
 
             <div class="form-group row my-4 w-75 mx-1">
-                <a href="javascript:void(0);" id="btn_add_platos" class="btn btn-optional w-100 my-4">Quiero Agregar
+                <a href="javascript:void(0);" class="btn btn-optional w-100 my-4 btn_add_platos">Quiero Agregar
                     Platos</a>
             </div>
 
             <div class="form-group row my-4 w-100 mx-auto">
-                <a href="javascript:void(0);" id="btn_confirm_reserva_1" class="btn btn-default w-80">Confirmar</a>
+                <a href="javascript:void(0);" id="btn_confirmar_reserva_1" class="btn btn-default w-80">Confirmar</a>
             </div>
 
         </div>
@@ -384,7 +386,7 @@
             </div>
             <div class="row my-2">
                 <div class="col">
-                    <strong>Número de Personas</strong>
+                    <strong>Número de Persona(s)</strong>
                 </div>
                 <div class="col">
                     <span class="text-left"> xx</span>
@@ -419,11 +421,106 @@
             </div>
 
             <div class="form-group row my-4 w-80 mx-auto">
-                <a href="javascript:void(0);" id="" class="btn btn-default w-80">Confirmar</a>
+                <a href="javascript:void(0);" id="btn_confirmar_reserva_2" class="btn btn-default w-80">Confirmar</a>
             </div>
         </div>
+    </section>
 
+    <section id="lista_reservas" class="overflow-auto ocultar">
 
+        <h2 class="text-center px-4 my-4">Reservas</h2>
+        <div class="container user_mode">
+            <div class="row">
+                <div class="col border-top pt-3">
+                    <h4 class="text-center px-2"><strong>Reserva</strong></h4>
+                    <p class="px-2 my-3">
+                        <strong> Carlos Santana </strong>
+                    </p>
+                    <p class="px-2 my-3">
+                        <strong> 3 </strong> Persona(s).
+                    </p>
+                    <p class="px-2 my-2">
+                        <strong> 11/03/2021</strong> de <time>10:00am</time> a <time>12:00pm</time>
+                    </p>
+                    <div class="form-group row my-4 w-75 mx-1">
+                        <a href="javascript:void(0);" class="btn btn-optional w-100 my-4 btn_add_platos"> Ver Platos</a>
+                    </div>
+                </div>
+                <div class="col">
+
+                    <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
+                    <div class="text-right">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode"> <strong> X </strong></a>
+                    </div>
+                    <img src="../img/dish.png" class="rounded mx-auto d-block" alt="">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="container user_mode">
+            <div class="row">
+                <div class="col border-top pt-3">
+                    <h4 class="text-center px-2"><strong>Reserva</strong></h4>
+                    <p class="px-2 my-3">
+                        <strong> Linus Torvals </strong>
+                    </p>
+                    <p class="px-2 my-3">
+                        <strong> 1 </strong> Persona(s).
+                    </p>
+                    <p class="px-2 my-2">
+                        <strong> 11/03/2021</strong> de <time>10:00am</time> a <time>12:00pm</time>
+                    </p>
+                    <div class="form-group row my-4 w-75 mx-1">
+                        <a href="javascript:void(0);" class="btn btn-optional w-100 my-4 btn_add_platos"> Ver Platos</a>
+                    </div>
+                </div>
+                <div class="col">
+
+                    <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
+                    <div class="text-right">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode"> <strong> X </strong></a>
+                    </div>
+                    <img src="../img/dish.png" class="rounded mx-auto d-block" alt="">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="container user_mode">
+            <div class="row">
+                <div class="col border-top pt-3">
+                    <h4 class="text-center px-2"><strong>Reserva</strong></h4>
+                    <p class="px-2 my-3">
+                        <strong> Carlos Santana </strong>
+                    </p>
+                    <p class="px-2 my-3">
+                        <strong> 3 </strong> Persona(s).
+                    </p>
+                    <p class="px-2 my-2">
+                        <strong> 11/03/2021</strong> de <time>10:00am</time> a <time>12:00pm</time>
+                    </p>
+                    <div class="form-group row my-4 w-75 mx-1">
+                        <a href="javascript:void(0);" class="btn btn-optional w-100 my-4 btn_add_platos"> Ver Platos</a>
+                    </div>
+                </div>
+                <div class="col">
+
+                    <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
+                    <div class="text-right">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode"> <strong> X </strong></a>
+                    </div>
+                    <img src="../img/dish.png" class="rounded mx-auto d-block" alt="">
+
+                </div>
+
+            </div>
+
+        </div>
     </section>
 
     <section id="form_nuevo_restaurante" class="ocultar">
