@@ -1,79 +1,59 @@
 @use "sass:map";
-
 $margin-padding-default-value: 0;
-
+$navbar-height: 40px;
 $section-margin-left-right-value: 1%;
 $section-height: 736px;
-$section-width: 98%;
+$section-width: 100%;
 $text-section-color: #FFF;
-
 $select-width: 100%;
 $select-padding: 12px 20px;
 $select-margin: 8px 0;
 $select-border: 1px;
 $select-border-radius: 4px;
 $select-border-color: #CCC;
-
 $input-width: 100%;
 $input-padding: 12px 20px;
 $input-margin: 8px 0;
 $input-border-bottom: 2px;
-
 $img-max-width: 100%;
-$img-padding:  5px;
+$img-padding: 5px;
 $img-width: 150px;
-
 $volver-margin-left: 0px;
 $volver-line-height: 28px;
-
 $logo-width: 300px;
 $logo-height: 300px;
 $logo-margin-top: 150px;
-
 $arrow-width: 32.5px;
 $arrow-height: 32.5px;
 $arrow-margin-left: 7px;
-
-$splash-font-stack: 'Arizonia', cursive;
+$modal-container-opacity: 0;
+$modal-container-left: 0;
+$restaurant-icon-width: 48px;
+$restaurant-icon-height: 48px;
+$close-icon-width: 48px;
+$close-icon-height: 48px;
+$splash-font-stack: 'Arizonia',
+cursive;
 $splash-font-size: 70px;
 $splash-text-color: #000;
-
-
-$colors: (
-    xiketic: #03071E,
-    dark_sienna: #370617,
-    rosewood: #6A040F,
-    dark_red: #9D0208,
-    rosso_corsa: #D00000,
-    vermilion: #DC2F02,
-    persimmon: #E85D04,
-    carrot_orange: #F48C06,
-    orange_web: #FAA307,
-    selective_yellow: #FFBA08,
-    background: linear-gradient(#DC2F02, #E85D04, #F48C06),
-);
-
-
+$colors: ( xiketic: #03071E, dark_sienna: #370617, rosewood: #6A040F, dark_red: #9D0208, rosso_corsa: #D00000, vermilion: #DC2F02, persimmon: #E85D04, carrot_orange: #F48C06, orange_web: #FAA307, selective_yellow: #FFBA08, background: linear-gradient(#DC2F02, #E85D04, #F48C06), );
 body,
-html{
+html {
     margin: $margin-padding-default-value;
     padding: $margin-padding-default-value;
     overflow-x: hidden;
+    background-image: map-get($colors, "background");
 }
 
-section{
-    height: $section-height;
+section {
+    height: $section-height - $navbar-height;
     width: $section-width;
-    border-style: solid;
-    background-image: map.get($colors,"background");
     color: $text-section-color;
-    margin-left: $section-margin-left-right-value;
-    margin-right: $section-margin-left-right-value;
+    background: none;
     overflow-x: hidden;
-    
 }
 
-select{
+select {
     width: $select-width;
     padding: $select-padding;
     margin: $select-margin;
@@ -83,64 +63,60 @@ select{
     box-sizing: border-box;
 }
 
-input[type=text] input[type=password]{
+input[type=text] input[type=password] {
     width: $input-width;
     padding: $input-padding;
     margin: $input-margin;
     box-sizing: border-box;
-    border: $input-border-bottom solid map.get($colors,"rosewood");
-
-    [type=submit]{
-        &:hover{
-            color: map.get($colors,"carrot_orange");
+    border: $input-border-bottom solid map-get($colors, "rosewood");
+    [type=submit] {
+        &:hover {
+            color: map-get($colors, "carrot_orange");
         }
     }
-
 }
 
-img{
+img {
     display: block;
     max-width: $img-max-width;
     height: auto;
     padding: $img-padding;
     width: $img-width;
-
 }
 
 h4 {
-    color: map.get($colors,"dark_sienna");
+    color: map-get($colors, "dark_sienna");
 }
 
-label{
-    color: map.get($colors,"dark_sienna");
+label {
+    color: map-get($colors, "dark_sienna");
+}
 
-} 
-
-a{
-    color: map.get($colors,"dark_sienna");
+a {
+    color: map-get($colors, "dark_sienna");
     text-decoration: none;
 }
 
-.ocultar{
+.ocultar {
     display: none;
 }
 
-.volver{
+.volver {
     margin-left: $volver-margin-left;
     line-height: $volver-line-height;
 }
 
-.btn-default{
-    background-color: map.get($colors,"xiketic");
+.btn-default {
+    background-color: map-get($colors, "xiketic");
     color: $text-section-color;
 }
 
-.btn-optional{
-    background-color: map.get($colors,"carrot_orange");
+.btn-optional {
+    background-color: map-get($colors, "carrot_orange");
     color: $text-section-color;
 }
 
-.logo{
+.logo {
     width: $logo-width;
     height: $logo-height;
     margin-left: auto;
@@ -148,14 +124,72 @@ a{
     margin-top: $logo-margin-top;
 }
 
-.arrow{
+.arrow {
     width: $arrow-width;
     height: $arrow-height;
     margin-left: $arrow-margin-left;
 }
 
-.text_splash{
+.text_splash {
     font-family: $splash-font-stack;
     font-size: $splash-font-size;
     color: $splash-text-color;
+}
+
+.modal-background-container {
+    display: none;
+    background-color: map-get($colors, "xiketic");
+    position: fixed;
+    opacity: $modal-container-opacity;
+    height: $section-height;
+    min-height: $section-height;
+    width: $section-width;
+    min-width: $section-width;
+    overflow: hidden;
+    opacity: 0.8;
+}
+
+.modal-container {
+    display: none;
+    background-color: map-get($colors, "orange_web");
+    ;
+    position: fixed;
+    pointer-events: none;
+    height: $section-height - $navbar-height;
+    max-height: $section-height - $navbar-height;
+    width: $section-width - 30%;
+    color: $text-section-color;
+    overflow: hidden;
+    max-width: $section-width - 30%;
+}
+
+.show {
+    display: block;
+    top: $navbar-height;
+    left: $modal-container-left;
+    pointer-events: auto;
+}
+
+.restaurant-icon {
+    width: $restaurant-icon-width;
+    height: $restaurant-icon-height;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.close-icon {
+    width: $close-icon-width;
+    height: $close-icon-height;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#navbar {
+    height: $navbar-height;
+    max-height: $navbar-height;
+    background: none;
+}
+
+.pointer_hover:hover {
+    cursor: pointer;
 }

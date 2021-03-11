@@ -3,16 +3,14 @@ html {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  background-image: linear-gradient(#DC2F02, #E85D04, #F48C06);
 }
 
 section {
-  height: 736px;
-  width: 98%;
-  border-style: solid;
-  background-image: linear-gradient(#DC2F02, #E85D04, #F48C06);
+  height: 696px;
+  width: 100%;
   color: #FFF;
-  margin-left: 1%;
-  margin-right: 1%;
+  background: none;
   overflow-x: hidden;
 }
 
@@ -95,6 +93,59 @@ a {
   font-family: "Arizonia", cursive;
   font-size: 70px;
   color: #000;
+}
+
+.modal-background-container {
+  display: none;
+  background-color: #03071E;
+  position: fixed;
+  opacity: 0;
+  height: 736px;
+  min-height: 736px;
+  width: 100%;
+  min-width: 100%;
+  overflow: hidden;
+  opacity: 0.8;
+}
+
+.modal-container {
+  display: none;
+  background-color: #FAA307;
+  position: fixed;
+  pointer-events: none;
+  height: 696px;
+  max-height: 696px;
+  width: 70%;
+  color: #FFF;
+  overflow: hidden;
+  max-width: 70%;
+}
+
+.show {
+  display: block;
+  top: 40px;
+  left: 0;
+  pointer-events: auto;
+}
+
+.restaurant-icon {
+  width: 48px;
+  height: 48px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.close-icon {
+  width: 48px;
+  height: 48px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#navbar {
+  height: 40px;
+  max-height: 40px;
+  background: none;
 }
 
 /*# sourceMappingURL=main.css.map */
