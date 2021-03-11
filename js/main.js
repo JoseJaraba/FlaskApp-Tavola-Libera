@@ -72,7 +72,6 @@ function agregarEventos() {
     btn_restaurante.addEventListener("click", () => { irA(restaurante); });
     btn_menu.addEventListener("click", () => { irA(menu); });
     btn_reserva.addEventListener("click", () => {
-        console.log("Is atuh", is_auth)
         if (is_auth) {
             irA(lista_reservas);
         } else {
@@ -100,7 +99,10 @@ function agregarEventos() {
     });
 
     btn_form_nuevo_restaurante_continuar.addEventListener("click", () => { irA(form_nuevo_restaurante_2); });
-    btn_form_nuevo_restaurante_confirmar.addEventListener("click", () => { irA(restaurante) })
+    btn_form_nuevo_restaurante_confirmar.addEventListener("click", () => {
+        admin_login();
+        irA(restaurante)
+    })
 
     for (var i = 0; i < btn_add_platos.length; i++) {
         btn = btn_add_platos[i];
@@ -172,12 +174,10 @@ function navbar_is_visible(seccion) {
 }
 
 /*
-
 Auth
-
 */
 
-var is_auth = true;
+var is_auth = false;
 
 function admin_login() {
     var admin_objects = document.getElementsByClassName("admin_mode");
