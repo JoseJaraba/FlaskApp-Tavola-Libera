@@ -32,11 +32,21 @@ $restaurant-icon-width: 48px;
 $restaurant-icon-height: 48px;
 $close-icon-width: 48px;
 $close-icon-height: 48px;
-$splash-font-stack: 'Arizonia',
+$splash-font-stack: 'Arizonia-Regular',
 cursive;
 $splash-font-size: 70px;
 $splash-text-color: #000;
 $colors: ( xiketic: #03071E, dark_sienna: #370617, rosewood: #6A040F, dark_red: #9D0208, rosso_corsa: #D00000, vermilion: #DC2F02, persimmon: #E85D04, carrot_orange: #F48C06, orange_web: #FAA307, selective_yellow: #FFBA08, background: linear-gradient(#DC2F02, #E85D04, #F48C06), );
+@mixin font($font-family, $font-file) {
+    @font-face {
+        font-family: $font-family;
+        src: url($font-file+'.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+}
+
+@include font('Arizonia', '/img/Arizonia-Regular');
 body,
 html {
     margin: $margin-padding-default-value;
@@ -131,7 +141,7 @@ a {
 }
 
 .text_splash {
-    font-family: $splash-font-stack;
+    font-family: 'Arizonia';
     font-size: $splash-font-size;
     color: $splash-text-color;
 }
