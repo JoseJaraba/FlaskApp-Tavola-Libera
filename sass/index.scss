@@ -17,7 +17,8 @@ $input-margin: 8px 0;
 $input-border-bottom: 2px;
 $img-max-width: 100%;
 $img-padding: 5px;
-$img-width: 150px;
+$img-width: 100px;
+$img-restautant-width: 150px;
 $volver-margin-left: 0px;
 $volver-line-height: 28px;
 $logo-width: 300px;
@@ -83,6 +84,7 @@ img {
     padding: $img-padding;
     width: $img-width;
 }
+
 
 h4 {
     color: map-get($colors, "dark_sienna");
@@ -184,12 +186,21 @@ a {
     margin-right: auto;
 }
 
+.pointer_hover:hover {
+    cursor: pointer;
+}
+
+.img-restautant{
+    display: block;
+    max-width: $img-max-width;
+    height: auto;
+    padding: $img-padding;
+    width: $img-restautant-width;
+}
+
 #navbar {
     height: $navbar-height;
     max-height: $navbar-height;
     background: none;
 }
 
-.pointer_hover:hover {
-    cursor: pointer;
-}
