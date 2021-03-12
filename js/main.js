@@ -79,7 +79,7 @@ function agregarEventos() {
         }
     });
     btn_confirmar_reserva_1.addEventListener("click", () => { irA(reserva_2) })
-    btn_confirmar_reserva_1.addEventListener("click", () => { irA(lista_restaurantes) })
+    btn_confirmar_reserva_2.addEventListener("click", () => { irA(lista_restaurantes) })
 
     btn_soy_restaurante.addEventListener("click", () => {
 
