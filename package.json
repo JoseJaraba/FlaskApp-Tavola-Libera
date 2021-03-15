@@ -1,31 +1,37 @@
 {
-  "name": "TavolaLibera",
-  "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JoseJaraba/FlaskApp-Tavola-Libera.git"
-  },
-  "keywords": [],
-  "author": "Jose <jose.jaraba@upb.edu.co>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JoseJaraba/FlaskApp-Tavola-Libera/issues"
-  },
-  "homepage": "https://github.com/JoseJaraba/FlaskApp-Tavola-Libera#readme",
-  "devDependencies": {
-    "dart-sass": "^1.25.0",
-    "gulp": "^4.0.2",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.1.0",
-    "gulp-uglify-es": "^2.0.0",
-    "sass": "^1.32.8"
-  },
-  "dependencies": {}
+    "name": "TavolaLibera",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": ""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JoseJaraba/FlaskApp-Tavola-Libera.git"
+    },
+    "keywords": [],
+    "author": "Jose <jose.jaraba@upb.edu.co>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/JoseJaraba/FlaskApp-Tavola-Libera/issues"
+    },
+    "homepage": "https://github.com/JoseJaraba/FlaskApp-Tavola-Libera#readme",
+    "devDependencies": {
+        "dart-sass": "^1.25.0",
+        "gulp": "^4.0.2",
+        "gulp-clean-css": "^4.3.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-rename": "^2.0.0",
+        "gulp-sass": "^4.1.0",
+        "gulp-uglify-es": "^2.0.0",
+        "sass": "^1.32.8"
+    },
+    "dependencies": {
+        "@capacitor/android": "^2.4.7",
+        "@capacitor/cli": "^2.4.7",
+        "@capacitor/core": "^2.4.7",
+        "@ionic/pwa-elements": "^3.0.2"
+    }
 }

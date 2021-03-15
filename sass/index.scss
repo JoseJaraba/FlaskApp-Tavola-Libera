@@ -95,7 +95,6 @@ img {
     width: $img-width;
 }
 
-
 h4 {
     color: map-get($colors, "dark_sienna");
 }
@@ -200,7 +199,7 @@ a {
     cursor: pointer;
 }
 
-.img-restautant{
+.img-restautant {
     display: block;
     max-width: $img-max-width;
     height: auto;
@@ -211,6 +210,5 @@ a {
 #navbar {
     height: $navbar-height;
     max-height: $navbar-height;
-    background: none;
+    background-color: map-get($colors, "persimmon");
 }
-
