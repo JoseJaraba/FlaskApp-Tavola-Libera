@@ -47,13 +47,13 @@
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-date-input" class="">Usuario</label>
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" , id="userLogin">
                 </div>
             </div>
             <div class="form-group row my-4 ">
                 <div class="col-10 mx-auto">
                     <label for="example-time-input" class="">Contraseña</label>
-                    <input class="form-control" type="password">
+                    <input class="form-control" type="password" , id="passwordLogin">
                 </div>
             </div>
             <div class="form-group row my-4">
@@ -85,20 +85,20 @@
         <div class="container">
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
-                    <label for="example-time-input" class="">Usuario</label>
-                    <input class="form-control" type="text" id="example-pass-input">
+                    <label for="example-time-input">Usuario</label>
+                    <input class="form-control" type="text" id="user">
                 </div>
             </div>
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-time-input" class="">Contraseña</label>
-                    <input class="form-control" type="password" id="example-pass-input">
+                    <input class="form-control" type="password" id="password">
                 </div>
             </div>
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-time-input" class="">Confirmar Contraseña</label>
-                    <input class="form-control" type="password" id="example-pass_conf-input">
+                    <input class="form-control" type="password" id="confirm_password">
                 </div>
             </div>
             <div class="form-group row my-4">
@@ -125,7 +125,8 @@
             </div>
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
-                    <small class=""> ¿Ya tienes una cuenta? <a id="btn_confirm_login_2" href="javascript:void(0);">Login</a></small>
+                    <small class=""> ¿Ya tienes una cuenta? <a id="btn_confirm_login_2"
+                            href="javascript:void(0);">Login</a></small>
                 </div>
             </div>
         </div>
@@ -257,12 +258,14 @@
         <h2 class=" text-center px-4 my-4">Pani Della Nonna</h2>
         <img src="img/restaurant-logo.png" class="rounded mx-auto d-block img-restautant" alt="">
 
-        <strong><a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">X</a></strong>
+        <strong><a href="javascript:void(0);"
+                class="boton volver button button-primary text-right admin_mode">X</a></strong>
 
         <p class="text-center px-2">Los mejores panes de la ciudad, del forno della nonna a tu casa</p>
 
         <div class="w-100">
-            <strong class="float-right"><a href="javascript:void(0);" class="boton volver button button-primary admin_mode">X</a></strong>
+            <strong class="float-right"><a href="javascript:void(0);"
+                    class="boton volver button button-primary admin_mode">X</a></strong>
         </div>
 
 
@@ -355,26 +358,26 @@
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-date-input" class="">Fecha</label>
-                    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+                    <input class="form-control" type="date" value="2011-08-19" id="date">
                 </div>
             </div>
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-time-input" class="">Hora</label>
-                    <input class="form-control" type="time" value="13:45:00" id="example-time-input">
+                    <input class="form-control" type="time" value="13:45:00" id="hour">
                 </div>
             </div>
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-number-input" class="">Numero de Persona(s)</label>
-                    <input class="form-control" type="number" value="1" id="example-number-input">
+                    <input class="form-control" type="number" value="1" id="number_persons">
                 </div>
             </div>
 
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <a href="javascript:void(0);" class="btn btn-optional w-100 my-4 btn_add_platos">Quiero Agregar
-                    Platos</a>
+                        Platos</a>
                 </div>
             </div>
 
@@ -386,7 +389,7 @@
     </section>
     <section id="reserva_2" class="ocultar">
 
-        <h2 class="px-4 my-4">Confirmar Reserva en *Nombre_Restaurante*</h2>
+        <h2 class="px-4 my-4">Confirmar Reserva en Pani Della Nonna</h2>
 
         <div class="container">
             <div class="row my-2">
@@ -583,7 +586,8 @@
             </div>
 
             <div class="form-group row my-4 w-80 mx-auto">
-                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_continuar" class="btn btn-default">Continuar</a>
+                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_continuar"
+                    class="btn btn-default">Continuar</a>
             </div>
         </div>
 
@@ -654,29 +658,31 @@
             <div class="form-group row mt-2 ps-2">
                 <div class="col-10 mx-auto">
                     <label for="example-time-input" class="col-2 col-form-label">Desde</label>
-                    <input class="form-control w-75" type="time" value="13:45:00" id="time-in">
+                    <input class="form-control w-75" type="time" value="13:45:00" id="time_in">
                 </div>
             </div>
             <div class="form-group row my-4 ps-2">
                 <div class="col-10 mx-auto">
                     <label for="example-time-input" class="col-2 col-form-label">Hasta</label>
-                    <input class="form-control w-75" type="time" value="13:45:00" id="time-out">
+                    <input class="form-control w-75" type="time" value="13:45:00" id="time_out">
                 </div>
             </div>
 
             <div class="form-group row my-4 ps-2">
                 <div class="col-10 mx-auto">
                     <label for="">Aforo Máximo</label>
-                    <input type="text" class="w-25 form-control" name="aforo" id="aforo" aria-describedby="helpId" placeholder="">
+                    <input type="text" class="w-25 form-control" name="aforo" id="aforo" aria-describedby="helpId"
+                        placeholder="">
                 </div>
             </div>
             <div class="form-group row my-4 w-80 mx-auto">
-                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_confirmar" class="btn btn-default w-80">Confirmar</a>
+                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_confirmar"
+                    class="btn btn-default w-80">Confirmar</a>
 
             </div>
         </div>
     </section>
-    <script src="js/main.min.js" language="javascript" type="text/javascript"></script>
+    <script src="js/main.js" language="javascript" type="text/javascript"></script>
 
 </body>
 
