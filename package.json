@@ -29,7 +29,7 @@
         "sass": "^1.32.8"
     },
     "dependencies": {
-        "@capacitor/android": "^2.4.7",
+        "@capacitor/android": "^3.0.0-rc.0",
         "@capacitor/cli": "^2.4.7",
         "@capacitor/core": "^2.4.7",
         "@ionic/pwa-elements": "^3.0.2"
