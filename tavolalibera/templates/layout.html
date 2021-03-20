@@ -8,8 +8,8 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link href="{{ url_for('static', filename='css/style.css' ) }}" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{url_for( 'static', filename='img/back-arrow.png' )}}" />
+    <link href="{{ url_for('static', filename='style.css' ) }}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{url_for( 'static', filename='back-arrow.png' )}}" />
 
     <title>
         {% block title %}{% endblock %}
@@ -19,10 +19,13 @@
 
 <body>
     <header class="site-header">
+
+        {% if current_user.is_authenticated %}
         <nav id="navbar" class="navbar">
             <div class="container w-100">
                 <div class="row w-100">
                     <div class="col-2">
+
                         <a id="btn_nav_menu" class="navbar-brand" href="javascript:void(0);">
                             <svg viewBox="0 0 100 100" width="30" height="30">
                                 <rect width="100" height="20"></rect>
@@ -46,7 +49,7 @@
                 </div>
             </div>
         </nav>
-
+        {% endif %}
     </header>
     <main role="main" class="container">
         <div class="row">
@@ -63,7 +66,7 @@
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
+    <script src=></script>
 </body>
 
 </html>
