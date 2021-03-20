@@ -255,17 +255,34 @@
     </section>
     <section id="restaurante" class="ocultar">
 
-        <h2 class=" text-center px-4 my-4">Pani Della Nonna</h2>
+        <h2 id="restaurante_name" class="text-center px-4 my-4">Pani Della Nonna</h2>
+
+        <div class="ocultar">
+            <input class="form-control" type="text" id="edit_restaurant_name">
+            <div class="mx-auto w-25">
+                <a href="javascript:void(0);" id="btn_edit_confirm_restaurante_name" class="boton button button-primary admin_mode">✔</a>
+            </div>
+        </div>
+
+        <div class="mx-auto w-25">
+            <a href="javascript:void(0);" id="btn_edit_restaurante_name" class="boton button button-primary admin_mode ocultar">X</a>
+        </div>
+
         <img src="img/restaurant-logo.png" class="rounded mx-auto d-block img-restautant" alt="">
 
-        <strong><a href="javascript:void(0);"
-                class="boton volver button button-primary text-right admin_mode">X</a></strong>
+        <div>
+            <p id="restaurante_desc" class="text-center px-2">Los mejores panes de la ciudad, del forno della nonna a tu casa</p>
 
-        <p class="text-center px-2">Los mejores panes de la ciudad, del forno della nonna a tu casa</p>
+            <div class="ocultar">
+                <input class="form-control" type="text" id="edit_restaurant_desc">
+                <div class="mx-auto w-25">
+                    <a href="javascript:void(0);" id="btn_edit_confirm_restaurant_desc" class="boton button button-primary admin_mode">✔</a>
+                </div>
+            </div>
 
-        <div class="w-100">
-            <strong class="float-right"><a href="javascript:void(0);"
-                    class="boton volver button button-primary admin_mode">X</a></strong>
+            <div class="mx-auto w-25">
+                <a href="javascript:void(0);" id="btn_edit_restaurant_desc" class="boton button button-primary admin_mode ocultar">X</a>
+            </div>
         </div>
 
 
@@ -300,7 +317,7 @@
 
                     <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
                     <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode ocultar">
                             <strong> X </strong></a>
                     </div>
                     <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
@@ -320,7 +337,7 @@
                 <div class="col">
 
                     <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode ocultar">
                             <strong> X </strong></a>
                     </div>
                     <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
@@ -340,7 +357,7 @@
                 <div class="col">
 
                     <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode ocultar">
                             <strong> X </strong></a>
                     </div>
                     <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
@@ -474,7 +491,7 @@
 
                     <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
                     <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode ocultar">
                             <strong> X </strong></a>
                     </div>
                     <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
@@ -506,7 +523,7 @@
 
                     <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
                     <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode ocultar">
                             <strong> X </strong></a>
                     </div>
                     <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
@@ -538,7 +555,7 @@
 
                     <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
                     <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
+                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode ocultar">
                             <strong> X </strong></a>
                     </div>
                     <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
@@ -586,8 +603,7 @@
             </div>
 
             <div class="form-group row my-4 w-80 mx-auto">
-                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_continuar"
-                    class="btn btn-default">Continuar</a>
+                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_continuar" class="btn btn-default">Continuar</a>
             </div>
         </div>
 
@@ -671,13 +687,11 @@
             <div class="form-group row my-4 ps-2">
                 <div class="col-10 mx-auto">
                     <label for="">Aforo Máximo</label>
-                    <input type="text" class="w-25 form-control" name="aforo" id="aforo" aria-describedby="helpId"
-                        placeholder="">
+                    <input type="text" class="w-25 form-control" name="aforo" id="aforo" aria-describedby="helpId" placeholder="">
                 </div>
             </div>
             <div class="form-group row my-4 w-80 mx-auto">
-                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_confirmar"
-                    class="btn btn-default w-80">Confirmar</a>
+                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_confirmar" class="btn btn-default w-80">Confirmar</a>
 
             </div>
         </div>

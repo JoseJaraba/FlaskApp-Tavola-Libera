@@ -1,5 +1,6 @@
 var splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2, navbar, modal_container, modal_background_container, lista_reservas;
-var btn_ingresar, btn_add_platos, btn_reset, btn_registro, btn_cont_reset, btn_confirm_login, btn_confirm_login_2, btn_confirm_login_3, btns_volver, btn_restaurante, btn_menu, btn_reserva, btn_nav_menu, btn_confirmar_reserva_1, btn_confirmar_reserva_2, btn_form_nuevo_restaurante_continuar, btn_form_nuevo_restaurante_confirmar, btn_cerrar_sesion, btn_soy_restaurante;
+var btn_ingresar, btn_add_platos, btn_reset, btn_registro, btn_cont_reset, btn_confirm_login, btn_confirm_login_2, btn_confirm_login_3, btns_volver, btn_restaurante, btn_menu, btn_reserva, btn_nav_menu, btn_confirmar_reserva_1, btn_confirmar_reserva_2, btn_form_nuevo_restaurante_continuar, btn_form_nuevo_restaurante_confirmar, btn_cerrar_sesion, btn_soy_restaurante, btn_edit_restaurant_img, btn_edit_restaurant_desc, btn_edit_confirm_restaurant_desc, btn_edit_restaurante_name, btn_edit_confirm_restaurante_name;
+var admin_objects;
 
 var secciones;
 var modal_is_open = false;
@@ -33,6 +34,9 @@ var ciudad;
 var time_in;
 var time_out;
 var aforo;
+var desc;
+
+let selected_restaurante;
 
 window.onload = () => {
     crearReferencias();
@@ -70,6 +74,7 @@ function crearReferencias() {
         btn = btn_add_platos[i].addEventListener("click", () => { irA(menu); });
     }
 
+    admin_objects = document.getElementsByClassName("admin_mode");
     btn_ingresar = document.getElementById("btn_ingresar");
     btn_confirm_login = document.getElementById("btn_confirm_login");
     btn_confirm_login_2 = document.getElementById("btn_confirm_login_2");
@@ -89,7 +94,10 @@ function crearReferencias() {
     btn_soy_restaurante = document.getElementById("btn_soy_restaurante");
     btn_form_nuevo_restaurante_continuar = document.getElementById("btn_form_nuevo_restaurante_continuar");
     btn_form_nuevo_restaurante_confirmar = document.getElementById("btn_form_nuevo_restaurante_confirmar");
-
+    btn_edit_restaurant_desc = document.getElementById("btn_edit_restaurant_desc");
+    btn_edit_confirm_restaurant_desc = document.getElementById("btn_edit_confirm_restaurant_desc");
+    btn_edit_restaurante_name = document.getElementById("btn_edit_restaurante_name");
+    btn_edit_confirm_restaurante_name = document.getElementById("btn_edit_confirm_restaurante_name");
     //Inputs
     //-Login-//
     userLogin = document.getElementById("userLogin");
@@ -110,6 +118,7 @@ function crearReferencias() {
     time_in = document.getElementById("time_in");
     time_out = document.getElementById("time_out");
     aforo = document.getElementById("aforo");
+    desc = document.getElementById("restaurante_desc");
 
     //-Reserva-//
     date = document.getElementById("date");
@@ -119,7 +128,11 @@ function crearReferencias() {
 }
 
 function agregarEventos() {
-    btn_ingresar.addEventListener("click", () => { inicioSesion() });
+    irA(lista_restaurantes);
+    btn_ingresar.addEventListener("click", () => {
+        if (inicioSesion())
+            irA(lista_restaurantes);
+    });
     btn_reset.addEventListener("click", () => { irA(reset); });
     btn_registro.addEventListener("click", () => { irA(registro); });
     btn_confirm_login.addEventListener("click", () => { agregarUsuario(), irA(login_screen); });
@@ -139,8 +152,7 @@ function agregarEventos() {
     btn_confirmar_reserva_2.addEventListener("click", () => { agregarReserva(), irA(lista_restaurantes) })
 
     btn_soy_restaurante.addEventListener("click", () => {
-
-        if (is_auth) {
+        if (current_user.restaurante) {
             irA(restaurante)
         } else {
             irA(form_nuevo_restaurante)
@@ -157,10 +169,23 @@ function agregarEventos() {
 
     btn_form_nuevo_restaurante_continuar.addEventListener("click", () => { agregarRestauranteParte1(); });
     btn_form_nuevo_restaurante_confirmar.addEventListener("click", () => {
-        agregarRestauranteParte2(), admin_login(), irA(restaurante);
+        agregarRestauranteParte2();
+        admin_login();
+        irA(restaurante);
     });
 
-
+    btn_edit_restaurant_desc.addEventListener("click", e => {
+        turn_edit(e);
+    });
+    btn_edit_confirm_restaurant_desc.addEventListener("click", e => {
+        confirm_edit(e);
+    });
+    btn_edit_restaurante_name.addEventListener("click", e => {
+        turn_edit(e);
+    });
+    btn_edit_confirm_restaurante_name.addEventListener("click", e => {
+        confirm_edit(e);
+    });
     btn_nav_menu.addEventListener("click", () => { modal(); });
     modal_background_container.addEventListener("click", () => {
         modal();
@@ -196,6 +221,9 @@ function ocultarSecciones() {
 function irA(seccion) {
     navbar_is_visible(seccion); //Comprobar si la navbar debería ser visible en la sección que se va a visitar
     nav_history.push(seccion);
+
+    preparar_vista(seccion);
+
     ocultarSecciones();
     seccion.classList.remove("ocultar");
 }
@@ -232,20 +260,12 @@ Auth
 var is_auth = false;
 
 function admin_login() {
-    var admin_objects = document.getElementsByClassName("admin_mode");
-    for (let i = 0; i < admin_objects.length; i++) {
-        var element = admin_objects[i];
-        element.style.setProperty("display", "flex", "important");
-    }
+    display_admin_objects(true);
     is_auth = true;
 }
 
 function logout() {
-    var admin_objects = document.getElementsByClassName("admin_mode");
-    for (let i = 0; i < admin_objects.length; i++) {
-        var element = admin_objects[i];
-        element.style.setProperty("display", "none", "important");
-    }
+    display_admin_objects(false);
     is_auth = false;
     irA(login_screen);
 }
@@ -298,11 +318,13 @@ function inicioSesion() {
     for (var i in registro_usuarios) {
         if (registro_usuarios[i].name === userLogin.value && registro_usuarios[i].password === passwordLogin.value) {
             current_user = registro_usuarios[i];
-            irA(lista_restaurantes);
 
             //Limpieza inputs//
             userLogin.value = "";
             passwordLogin.value = "";
+
+            if (current_user.restaurante)
+                admin_login();
 
             return true;
         }
@@ -323,15 +345,7 @@ function agregarReserva() {
     reserva.number_persons = number_persons.value;
 
     current_user.reserva = reserva;
-
-    for (var i in registro_usuarios) {
-        if (registro_usuarios[i].name == current_user.name) {
-            registro_usuarios[i] = current_user;
-            localStorage.setItem("usuarios", JSON.stringify(registro_usuarios));
-            return true;
-        }
-    }
-
+    local_storage_actualizar_current_user();
 }
 
 function agregarRestauranteParte1() {
@@ -342,6 +356,7 @@ function agregarRestauranteParte1() {
     }
     irA(form_nuevo_restaurante_2);
 }
+
 function agregarRestauranteParte2() {
     if (time_in.value == "" || time_out.value == "" || aforo.value == "") {
         alert("Se deben de llenar todos los campos");
@@ -355,9 +370,13 @@ function agregarRestauranteParte2() {
     restaurante.time_in = time_in.value;
     restaurante.time_out = time_out.value;
     restaurante.amount = aforo.value;
+    restaurante.desc = desc.value;
 
     registro_restaurantes.push(restaurante);
     localStorage.setItem("restaurantes", JSON.stringify(registro_restaurantes));
+
+    current_user.restaurante = registro_restaurantes[registro_restaurantes.length - 1];
+    local_storage_actualizar_current_user();
 
     nombre.value = "";
     direccion.value = "";
@@ -366,5 +385,115 @@ function agregarRestauranteParte2() {
     time_in.value = "";
     time_out.value = "";
     aforo.value = "";
+}
 
+function display_admin_objects(show) {
+    for (let i = 0; i < admin_objects.length; i++) {
+        var element = admin_objects[i];
+
+        show ? element.style.setProperty("display", "flex", "important") : element.style.setProperty("display", "none", "important");
+    }
+}
+
+function local_storage_actualizar_current_user() {
+
+    for (var i in registro_usuarios) {
+        if (registro_usuarios[i].name == current_user.name) {
+            registro_usuarios[i] = current_user;
+            localStorage.setItem("usuarios", JSON.stringify(registro_usuarios));
+            return true;
+        }
+    }
+}
+
+function preparar_vista(seccion) {
+    switch (seccion) {
+        case restaurante:
+            if (current_user.restaurante) {
+                preparar_vista_restaurante(current_user.restaurante);
+            } else {
+                preparar_vista_restaurante(selected_restaurante);
+            }
+            break;
+
+        default:
+            break;
+    }
+}
+
+function preparar_vista_restaurante(restaurante) {
+    let restaurante_name = document.getElementById("restaurante_name");
+    restaurante_name.innerHTML = restaurante.name;
+
+    let html_description_p = document.getElementById("restaurante_desc");
+    html_description_p.innerHTML = restaurante.desc;
+
+}
+
+function turn_edit(e) {
+    switch (e.target) {
+        case btn_edit_restaurant_desc: //Edit restaurant description
+            btn_edit_restaurant_desc.style.setProperty("display", "none", "important");
+            //Guardar estado de la descripción actual
+            let description_p = desc.innerHTML;
+            desc.innerHTML = '';
+
+            //Actualizar input y mostrarlo
+            let description_input = document.getElementById("edit_restaurant_desc");
+            description_input.value = description_p;
+            description_input.parentElement.classList.remove("ocultar");
+            break;
+        case btn_edit_restaurante_name:
+            btn_edit_restaurante_name.style.setProperty("display", "none", "important");
+
+            //Guardar estado del nombre actual
+            let restaurante_name = document.getElementById("restaurante_name");
+            restaurante_name.innerHTML = '';
+
+            //Actualizar input y mostrarlo
+            let name_input = document.getElementById("edit_restaurant_name");
+            name_input.value = restaurante_name.innerHTML;
+            name_input.parentElement.classList.remove("ocultar");
+            break;
+
+        default:
+            break;
+    }
+}
+
+function confirm_edit(e) {
+    switch (e.target) {
+        case btn_edit_confirm_restaurant_desc: //Edit restaurant description
+
+            //Guardar estado de la descripción actual
+            let description_input = document.getElementById("edit_restaurant_desc");
+            description_input.parentElement.classList.add("ocultar");
+
+            current_user.restaurante.desc = description_input.value;
+            local_storage_actualizar_current_user();
+
+            //Actualizar descripción
+            desc.innerHTML = description_input.value;
+            btn_edit_restaurant_desc.style.setProperty("display", "flex", "important");
+
+            break;
+        case btn_edit_confirm_restaurante_name:
+            //Guardar estado de la descripción actual
+            let name_input = document.getElementById("edit_restaurant_name");
+            name_input.parentElement.classList.add("ocultar");
+
+            current_user.restaurante.name = name_input.value;
+            local_storage_actualizar_current_user();
+
+            //Actualizar vista
+            let restaurante_name = document.getElementById("restaurante_name");
+            restaurante_name.innerHTML = name_input.value;
+
+            btn_edit_restaurante_name.style.setProperty("display", "flex", "important");
+
+            break;
+
+        default:
+            break;
+    }
 }
