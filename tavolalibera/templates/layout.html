@@ -50,6 +50,29 @@
             </div>
         </nav>
         {% endif %}
+        {% if current_user.is_authenticated %}
+        <div class="modal-background-container" id="modal_background_container">
+        </div>
+    
+        <div class="modal-container ocultar" id="modal_container">
+            <div id="btn_soy_restaurante" class="row p-2 shadow-lg my-1 pointer_hover">
+                <div class="col-3">
+                    <img class="restaurant-icon" src="{{url_for( 'static', filename='img/tray.png' )}}">
+                </div>
+                <div class="col-5">
+                    <a href="javascript:void(0);">Soy restaurante</a>
+                </div>
+            </div>
+            <div id="btn_cerrar_sesion" class="row p-2 shadow-lg my-1 pointer_hover">
+                <div class="col-3">
+                    <img class="close-icon" src="{{url_for( 'static', filename='img/cancel.png' )}}">
+                </div>
+                <div class="col-5 py-2">
+                    <a href="javascript:void(0);">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </header>
     <main role="main" class="container">
         <div class="row">
@@ -66,7 +89,7 @@
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <script src=></script>
+    <script src="{{url_for( 'static', filename='main.js' )}}"></script>
 </body>
 
 </html>
