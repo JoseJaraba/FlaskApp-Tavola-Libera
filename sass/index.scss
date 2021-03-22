@@ -212,3 +212,8 @@ a {
     max-height: $navbar-height;
     background-color: map-get($colors, "persimmon");
 }
+
+.btn_restaurante:hover {
+    cursor: pointer;
+    pointer-events: none;
+}

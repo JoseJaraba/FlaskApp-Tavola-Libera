@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Arizonia";
+  src: url("/img/Arizonia-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 body,
 html {
   margin: 0;
@@ -90,7 +96,7 @@ a {
 }
 
 .text_splash {
-  font-family: "Arizonia", cursive;
+  font-family: "Arizonia";
   font-size: 70px;
   color: #000;
 }
@@ -157,7 +163,12 @@ a {
 #navbar {
   height: 40px;
   max-height: 40px;
-  background: none;
+  background-color: #E85D04;
+}
+
+.btn_restaurante:hover {
+  cursor: pointer;
+  pointer-events: none;
 }
 
 /*# sourceMappingURL=main.css.map */
