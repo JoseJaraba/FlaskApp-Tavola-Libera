@@ -54,7 +54,7 @@ class Usuario {
 }
 
 class Restaurante {
-    constructor(nombre, direccion, telefono, ciudad, time_in, time_out, aforo, desc) {
+    constructor(nombre, direccion, telefono, ciudad, time_in, time_out, aforo, desc, platos) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -63,6 +63,7 @@ class Restaurante {
         this.time_out = time_out;
         this.aforo = aforo;
         this.desc = desc;
+        this.platos = platos;
     }
 
     static restaurante_to_html(restaurante) {
@@ -72,6 +73,7 @@ class Restaurante {
                                 <h4 class="text-center px-2">${restaurante.nombre}</h4>
                                 <p class="px-2 my-auto">${restaurante.desc}</p>
                             </div>
+                            
                             <div class="col">
                                 <p>
                                     <a  href="javascript:void(0);">
@@ -109,6 +111,21 @@ class Restaurante {
         return html;
     }
 
+    static preparar_vista_restaurante(restaurante) {
+        let restaurante_name = document.getElementById("restaurante_name");
+        restaurante_name.innerHTML = restaurante.nombre;
+
+        let html_description_p = document.getElementById("restaurante_desc");
+        html_description_p.innerHTML = restaurante.desc;
+
+        if (selected_restaurante === current_user.restaurante) {
+            admin_login();
+            display_admin_objects(true);
+        } else {
+            display_admin_objects(false);
+        }
+    }
+
     static preparar_vista_lista_restaurantes() {
         let div = document.getElementById("contenedor_restaurantes");
 
@@ -131,9 +148,33 @@ class Restaurante {
 
         if (registro_restaurantes.length <= 0) {
 
-            registro_restaurantes.push(new Restaurante("Pani Della Nonna", "Calle 47b #33-15", "1234567", "Roma", "12:00 PM", "8:00 PM", 20, "Los mejores panes de la ciudad."));
-            registro_restaurantes.push(new Restaurante("Karak", "Calle 33 #47-15", "9876543", "Singapur", "3:00 PM", "11:00 PM", 8, "Comida árabe fusión."));
-            registro_restaurantes.push(new Restaurante("Salino", "Calle 20 #33-34", "6536242", "Túnez", "8:00 AM", "3:00 PM", 50, "Comida del mediterráneo."));
+            let platos_pani_de_la_nona = [
+                new Plato("Ciabatta", "Pan elaborado al horno y que tiene una capa crujiente por su exterior."),
+                new Plato("Cannoli", "Masa enrollada en forma de tubo que dentro lleva ingredientes mezclados con queso ricota."),
+                new Plato("Panettone", "Pan hecho con una masa de tipo brioche, relleno con pasas y frutas confitadas.")
+            ];
+
+
+            let platos_karak = [
+                new Plato("Falafel", "Croquetas de Garbanzo"),
+                new Plato("Tabbule", "Exquisita ensalada oirunda del Líbano y Siria"),
+                new Plato("Tahine", "Hummus o Crema de Garbanzo")
+            ];
+
+
+            let platos_salino = [
+                new Plato("Baba Ganoush", "Pasta a base de berenjenas asadas mezcladas con jugo de limón, tahini y especias, como comino."),
+                new Plato("Bouillabaisse", "Sopa tradicional de la región francesa de Provenza a base de pescados, mariscos y verduras como puerros, tomates y ajo, y hierbas y especias."),
+                new Plato("Briami griego", "Plato vegetariano tradicional griego que consiste en una cazuela de verduras al horno. Los ingredientes básicos son calabacín, patatas, cebolla, tomates, entre otros.")
+            ];
+
+            let pani_de_la_nona = new Restaurante("Pani Della Nonna", "Calle 47b #33-15", "1234567", "Roma", "12:00 PM", "8:00 PM", 20, "Los mejores panes de la ciudad.", platos_pani_de_la_nona);
+            let karak = new Restaurante("Karak", "Calle 33 #47-15", "9876543", "Singapur", "3:00 PM", "11:00 PM", 8, "Comida árabe fusión.", platos_karak);
+            let salino = new Restaurante("Salino", "Calle 20 #33-34", "6536242", "Túnez", "8:00 AM", "3:00 PM", 50, "Comida del mediterráneo.", platos_salino);
+
+            registro_restaurantes.push(pani_de_la_nona);
+            registro_restaurantes.push(karak);
+            registro_restaurantes.push(salino);
         }
 
         localStorage.setItem("restaurantes", JSON.stringify(registro_restaurantes));
@@ -145,9 +186,159 @@ class Restaurante {
         localStorage.setItem("restaurantes", JSON.stringify(registro_restaurantes));
         Restaurante.preparar_vista_lista_restaurantes();
     }
+
+    static turn_edit(e) {
+        switch (e.target) {
+            case btn_edit_restaurant_desc: //Edit restaurant description
+                btn_edit_restaurant_desc.style.setProperty("display", "none", "important");
+                //Guardar estado de la descripción actual
+                let description_p = desc.innerHTML;
+                desc.innerHTML = '';
+
+                //Actualizar input y mostrarlo
+                let description_input = document.getElementById("edit_restaurant_desc");
+                description_input.value = description_p;
+                description_input.parentElement.classList.remove("ocultar");
+                break;
+            case btn_edit_restaurante_name:
+                btn_edit_restaurante_name.style.setProperty("display", "none", "important");
+
+                //Guardar estado del nombre actual
+                let restaurante_name = document.getElementById("restaurante_name");
+                let name = restaurante_name.innerHTML;
+                restaurante_name.innerHTML = '';
+
+                //Actualizar input y mostrarlo
+                let name_input = document.getElementById("edit_restaurant_name");
+                name_input.value = name;
+                name_input.parentElement.classList.remove("ocultar");
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    static confirm_edit(e) {
+        switch (e.target) {
+            case btn_edit_confirm_restaurant_desc: //Edit restaurant description
+
+                //Guardar estado de la descripción actual
+                let description_input = document.getElementById("edit_restaurant_desc");
+                description_input.parentElement.classList.add("ocultar");
+
+                current_user.restaurante.desc = description_input.value;
+                local_storage_actualizar_current_user();
+
+                //Actualizar descripción
+                desc.innerHTML = description_input.value;
+                btn_edit_restaurant_desc.style.setProperty("display", "flex", "important");
+
+                break;
+            case btn_edit_confirm_restaurante_name:
+                //Guardar estado de la descripción actual
+                let name_input = document.getElementById("edit_restaurant_name");
+                name_input.parentElement.classList.add("ocultar");
+
+                current_user.restaurante.nombre = name_input.value;
+                local_storage_actualizar_current_user();
+
+                //Actualizar vista
+                let restaurante_name = document.getElementById("restaurante_name");
+                restaurante_name.innerHTML = name_input.value;
+
+                btn_edit_restaurante_name.style.setProperty("display", "flex", "important");
+
+                break;
+
+            default:
+                break;
+        }
+    }
 }
 let selected_restaurante;
 
+class Plato {
+    constructor(name, desc) {
+        this.name = name;
+        this.desc = desc;
+    }
+
+    static get_plato_from_btn_id(btn_id) {
+        //Format: btn_plato_<nombreplato>
+        return btn_id.split('_')[2];
+    }
+
+    static plato_to_html(plato) {
+        return `<div class="container">
+                    <div class="row btn_plato" id="btn_plato_${plato.name.replaceAll(" ", '')}">
+                        <div class="col border-top pt-3">
+                                <h4 class="text-center px-2">${plato.name}</h4>
+                                <p class="px-2 my-auto">
+                                    ${plato.desc}
+                                </p>
+                        </div>
+                        <div class="col">
+
+                            <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
+                            <div class="text-right">
+                                <a id="btn_plato_${plato.name.replaceAll(" ", '')}_edit_desc" href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode ocultar">
+                                    <strong> X </strong></a>
+                            </div>
+                            <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
+
+                        </div>
+                    </div>
+                </div>`
+
+        /* Replace/refactor for edit button
+                <div class="ocultar">
+                <input class="form-control w-75 mx-auto" type="text" id="edit_restaurant_desc">
+                <div class="mx-auto w-25">
+                    <a href="javascript:void(0);" id="btn_edit_confirm_restaurant_desc" class="boton button button-primary admin_mode">✔</a>
+                </div>
+            </div>
+
+            <div class="mx-auto w-25">
+                <a href="javascript:void(0);" id="btn_edit_restaurant_desc" class="boton button button-primary admin_mode ocultar">X</a>
+            </div>
+            */
+    }
+
+    static platos_list_to_html(platos) {
+        let html = '';
+
+        platos.forEach(plato => {
+            html = html.concat(Plato.plato_to_html(plato));
+        });
+
+
+        return html;
+    }
+
+    static preparar_vista_menu() {
+        let div = document.getElementById("contenedor_menu");
+        console.log(selected_restaurante);
+        console.log(selected_restaurante.platos);
+
+        div.innerHTML = Plato.platos_list_to_html(selected_restaurante.platos);
+
+        // Agregar Eventos
+        let btn_platos = document.getElementsByClassName("btn_plato");
+
+        for (var i = 0; i < btn_platos.length; i++) {
+            btn_platos[i].addEventListener("click", e => {
+                console.log(e.currentTarget);
+            });
+        }
+
+        if (selected_restaurante === current_user.restaurante) {
+            display_admin_objects(true);
+        } else {
+            display_admin_objects(false);
+        }
+    }
+}
 
 window.onload = () => {
     Restaurante.cargar_restaurantes();
@@ -247,7 +438,6 @@ function crearReferencias() {
 }
 
 function agregarEventos() {
-    irA(lista_restaurantes);
     btn_ingresar.addEventListener("click", () => {
         if (inicioSesion())
             irA(lista_restaurantes);
@@ -260,7 +450,8 @@ function agregarEventos() {
     btn_cont_reset.addEventListener("click", () => { editarCheck(); });
     btn_menu.addEventListener("click", () => { irA(menu); });
     btn_reserva.addEventListener("click", () => {
-        if (is_auth) {
+        console.log("Abriendo reserva", admin_mode);
+        if (admin_mode) {
             irA(lista_reservas);
         } else {
             irA(reserva);
@@ -294,16 +485,16 @@ function agregarEventos() {
     });
 
     btn_edit_restaurant_desc.addEventListener("click", e => {
-        turn_edit(e);
+        Restaurante.turn_edit(e);
     });
     btn_edit_confirm_restaurant_desc.addEventListener("click", e => {
-        confirm_edit(e);
+        Restaurante.confirm_edit(e);
     });
     btn_edit_restaurante_name.addEventListener("click", e => {
-        turn_edit(e);
+        Restaurante.turn_edit(e);
     });
     btn_edit_confirm_restaurante_name.addEventListener("click", e => {
-        confirm_edit(e);
+        Restaurante.confirm_edit(e);
     });
     btn_nav_menu.addEventListener("click", () => { modal(); });
     modal_background_container.addEventListener("click", () => {
@@ -376,14 +567,14 @@ function navbar_is_visible(seccion) {
 Auth
 */
 
-var is_auth = false;
+var admin_mode = false;
 
 function admin_login() {
-    is_auth = true;
+    admin_mode = true;
 }
 
 function logout() {
-    is_auth = false;
+    admin_mode = false;
     irA(login_screen);
 }
 
@@ -440,8 +631,7 @@ function inicioSesion() {
             userLogin.value = "";
             passwordLogin.value = "";
 
-            if (current_user.restaurante)
-                admin_login();
+
 
             return true;
         }
@@ -527,7 +717,18 @@ function agregarRestauranteParte2() {
         alert("Se deben de llenar todos los campos");
         return false;
     }
-    var restaurante = new Restaurante(nombre.value, direccion.value, telefono.value, ciudad.value, time_in.value, time_out.value, aforo.value, "Bienvenido");
+    var restaurante = new Restaurante(
+        nombre.value,
+        direccion.value,
+        telefono.value,
+        ciudad.value,
+        time_in.value,
+        time_out.value,
+        aforo.value,
+        "Bienvenido", [new Plato('Nombre del plato 1', 'Descipción del plato'),
+            new Plato('Nombre del plato 2', 'Descipción del plato'),
+            new Plato('Nombre del plato 3', 'Descipción del plato')
+        ]);
     // restaurante.nombre = nombre.value;
     // restaurante.direccion = direccion.value;
     // restaurante.telefono = telefono.value;
@@ -574,95 +775,14 @@ function local_storage_actualizar_current_user() {
 function preparar_vista(seccion) {
     switch (seccion) {
         case restaurante:
-            preparar_vista_restaurante(selected_restaurante);
+            Restaurante.preparar_vista_restaurante(selected_restaurante);
             break;
         case lista_restaurantes:
             Restaurante.preparar_vista_lista_restaurantes();
             break;
-
-        default:
+        case menu:
+            Plato.preparar_vista_menu();
             break;
-    }
-}
-
-function preparar_vista_restaurante(restaurante) {
-    let restaurante_name = document.getElementById("restaurante_name");
-    restaurante_name.innerHTML = restaurante.nombre;
-
-    let html_description_p = document.getElementById("restaurante_desc");
-    html_description_p.innerHTML = restaurante.desc;
-
-    if (selected_restaurante === current_user.restaurante) {
-        display_admin_objects(true);
-    } else {
-        display_admin_objects(false);
-    }
-}
-
-function turn_edit(e) {
-    switch (e.target) {
-        case btn_edit_restaurant_desc: //Edit restaurant description
-            btn_edit_restaurant_desc.style.setProperty("display", "none", "important");
-            //Guardar estado de la descripción actual
-            let description_p = desc.innerHTML;
-            desc.innerHTML = '';
-
-            //Actualizar input y mostrarlo
-            let description_input = document.getElementById("edit_restaurant_desc");
-            description_input.value = description_p;
-            description_input.parentElement.classList.remove("ocultar");
-            break;
-        case btn_edit_restaurante_name:
-            btn_edit_restaurante_name.style.setProperty("display", "none", "important");
-
-            //Guardar estado del nombre actual
-            let restaurante_name = document.getElementById("restaurante_name");
-            let name = restaurante_name.innerHTML;
-            restaurante_name.innerHTML = '';
-
-            //Actualizar input y mostrarlo
-            let name_input = document.getElementById("edit_restaurant_name");
-            name_input.value = name;
-            name_input.parentElement.classList.remove("ocultar");
-            break;
-
-        default:
-            break;
-    }
-}
-
-function confirm_edit(e) {
-    switch (e.target) {
-        case btn_edit_confirm_restaurant_desc: //Edit restaurant description
-
-            //Guardar estado de la descripción actual
-            let description_input = document.getElementById("edit_restaurant_desc");
-            description_input.parentElement.classList.add("ocultar");
-
-            current_user.restaurante.desc = description_input.value;
-            local_storage_actualizar_current_user();
-
-            //Actualizar descripción
-            desc.innerHTML = description_input.value;
-            btn_edit_restaurant_desc.style.setProperty("display", "flex", "important");
-
-            break;
-        case btn_edit_confirm_restaurante_name:
-            //Guardar estado de la descripción actual
-            let name_input = document.getElementById("edit_restaurant_name");
-            name_input.parentElement.classList.add("ocultar");
-
-            current_user.restaurante.nombre = name_input.value;
-            local_storage_actualizar_current_user();
-
-            //Actualizar vista
-            let restaurante_name = document.getElementById("restaurante_name");
-            restaurante_name.innerHTML = name_input.value;
-
-            btn_edit_restaurante_name.style.setProperty("display", "flex", "important");
-
-            break;
-
         default:
             break;
     }
