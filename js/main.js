@@ -42,8 +42,8 @@ var time_out;
 var aforo;
 var desc;
 
-class Usuario{
-    constructor(nombre, contrasena, confirmar_contrasena, pregunta_seguridad, respuesta_seguridad, reserva){
+class Usuario {
+    constructor(nombre, contrasena, confirmar_contrasena, pregunta_seguridad, respuesta_seguridad, reserva) {
         this.name = nombre;
         this.password = contrasena;
         this.confirm_password = confirmar_contrasena;
@@ -88,6 +88,7 @@ class Restaurante {
     static get_restaurante_from_btn_id(btn_id) {
         //Format: btn_restaurante_<nombrerestaurante>
         let nombre_restaurante = btn_id.split('_')[2];
+        let registro_restaurantes = JSON.parse(localStorage.getItem("restaurantes"));
 
         for (var i = 0; i < registro_restaurantes.length; i++) {
             if (registro_restaurantes[i].nombre === nombre_restaurante)
@@ -97,10 +98,13 @@ class Restaurante {
 
     static restaurantes_list_to_html() {
         let html = '';
+        let restaurantes = JSON.parse(localStorage.getItem("restaurantes"));
 
-        registro_restaurantes.forEach(restaurante => {
+        restaurantes.forEach(restaurante => {
+
             html = html.concat(Restaurante.restaurante_to_html(restaurante));
         });
+
 
         return html;
     }
@@ -108,32 +112,49 @@ class Restaurante {
     static preparar_vista_lista_restaurantes() {
         let div = document.getElementById("contenedor_restaurantes");
 
-        div.innerHTML = this.restaurantes_list_to_html(registro_restaurantes);
+        div.innerHTML = Restaurante.restaurantes_list_to_html();
 
         // Agregar Eventos
         btn_restaurantes = document.getElementsByClassName("btn_restaurante");
 
         for (var i = 0; i < btn_restaurantes.length; i++) {
             btn_restaurantes[i].addEventListener("click", e => {
-                console.log(e)
+
                 selected_restaurante = Restaurante.get_restaurante_from_btn_id(e.currentTarget.id);
                 irA(restaurante);
             });
         }
     }
+
+    static cargar_restaurantes() {
+        let registro_restaurantes = JSON.parse(localStorage.getItem("restaurantes")) || [];
+
+        if (registro_restaurantes.length <= 0) {
+
+            registro_restaurantes.push(new Restaurante("Pani Della Nonna", "Calle 47b #33-15", "1234567", "Roma", "12:00 PM", "8:00 PM", 20, "Los mejores panes de la ciudad."));
+            registro_restaurantes.push(new Restaurante("Karak", "Calle 33 #47-15", "9876543", "Singapur", "3:00 PM", "11:00 PM", 8, "Comida árabe fusión."));
+            registro_restaurantes.push(new Restaurante("Salino", "Calle 20 #33-34", "6536242", "Túnez", "8:00 AM", "3:00 PM", 50, "Comida del mediterráneo."));
+        }
+
+        localStorage.setItem("restaurantes", JSON.stringify(registro_restaurantes));
+    }
+
+    static agregar_restaurante(restaurante) {
+        registro_restaurantes = JSON.parse(localStorage.getItem("restaurantes"));
+        registro_restaurantes.push(restaurante);
+        localStorage.setItem("restaurantes", JSON.stringify(registro_restaurantes));
+        Restaurante.preparar_vista_lista_restaurantes();
+    }
 }
 let selected_restaurante;
 
-registro_restaurantes = [
-    new Restaurante("Pani Della Nonna", "Calle 47b #33-15", "1234567", "Roma", "12:00 PM", "8:00 PM", 20, "Los mejores panes de la ciudad."),
-    new Restaurante("Karak", "Calle 33 #47-15", "9876543", "Singapur", "3:00 PM", "11:00 PM", 8, "Comida árabe fusión."),
-    new Restaurante("Salino", "Calle 20 #33-34", "6536242", "Túnez", "8:00 AM", "3:00 PM", 50, "Comida del mediterráneo."),
-];
-
 
 window.onload = () => {
+    Restaurante.cargar_restaurantes();
+
     crearReferencias();
     agregarEventos();
+
     setTimeout(() => {
         nav_history.push(login_screen);
         irA(login_screen);
@@ -199,7 +220,7 @@ function crearReferencias() {
     userReset = document.getElementById("userReset");
     security_answerReset = document.getElementById("security_answerReset");
     passReset = document.getElementById("passReset");
-    confpassReset = document.getElementById("confpassReset") ;
+    confpassReset = document.getElementById("confpassReset");
 
     //-Registro-//
     username = document.getElementById("user");
@@ -251,7 +272,7 @@ function agregarEventos() {
     btn_soy_restaurante.addEventListener("click", () => {
         if (current_user.restaurante) {
             selected_restaurante = current_user.restaurante;
-            irA(restaurante)
+            irA(restaurante);
         } else {
             irA(form_nuevo_restaurante)
         }
@@ -269,7 +290,7 @@ function agregarEventos() {
     btn_form_nuevo_restaurante_confirmar.addEventListener("click", () => {
         agregarRestauranteParte2();
         admin_login();
-        irA(restaurante);
+        irA(lista_restaurantes);
     });
 
     btn_edit_restaurant_desc.addEventListener("click", e => {
@@ -378,7 +399,7 @@ function agregarUsuario() {
         return false;
     }
 
-    var usuario = new Usuario(username.value,password.value,confirm_password.value,security_question.value,security_answer.value, null);
+    var usuario = new Usuario(username.value, password.value, confirm_password.value, security_question.value, security_answer.value, null);
     // usuario.name = username.value;
     // usuario.password = password.value;
     // usuario.confirm_password = confirm_password.value;
@@ -430,15 +451,15 @@ function inicioSesion() {
 
 }
 
-function editarCheck(){
+function editarCheck() {
     //Validación de campos
-    if(userReset.value == "" || security_answerReset.value == ""){
+    if (userReset.value == "" || security_answerReset.value == "") {
         alert("Los campos no pueden estar vacios")
         return false;
     }
     //Validación usuario y pregunta de seguridad 
-    for (var i in registro_usuarios){
-        if(registro_usuarios[i].name === userReset.value && registro_usuarios[i].security_answer === security_answerReset.value){
+    for (var i in registro_usuarios) {
+        if (registro_usuarios[i].name === userReset.value && registro_usuarios[i].security_answer === security_answerReset.value) {
             current_user = registro_usuarios[i];
 
             //Limpieza inputs//
@@ -453,13 +474,13 @@ function editarCheck(){
     alert("El usuario y/o la respuesta son incorrectos");
 }
 
-function editarPass(){
+function editarPass() {
     //Validación de campos
-    if(passReset.value == "" || confpassReset.value == "" ){
+    if (passReset.value == "" || confpassReset.value == "") {
         alert("Los campos no pueden estar vacios")
         return false;
     }
-    if (passReset.value != confpassReset.value){
+    if (passReset.value != confpassReset.value) {
         alert("Las contraseñas no coinciden");
         return false;
     }
@@ -467,8 +488,8 @@ function editarPass(){
     current_user.password = passReset.value;
     current_user.confirm_password = confpassReset.value;
     // Añadir
-    for(var i in registro_usuarios){
-        if(registro_usuarios[i].name == current_user.name){
+    for (var i in registro_usuarios) {
+        if (registro_usuarios[i].name == current_user.name) {
             registro_usuarios[i] = current_user;
             localStorage.setItem("usuarios", JSON.stringify(registro_usuarios));
             irA(login_screen);
@@ -506,7 +527,7 @@ function agregarRestauranteParte2() {
         alert("Se deben de llenar todos los campos");
         return false;
     }
-    var restaurante = new Restaurante(nombre.value,direccion.value,telefono.value,ciudad.value,time_in.value,time_out.value,aforo.value, "Bienvenido");
+    var restaurante = new Restaurante(nombre.value, direccion.value, telefono.value, ciudad.value, time_in.value, time_out.value, aforo.value, "Bienvenido");
     // restaurante.nombre = nombre.value;
     // restaurante.direccion = direccion.value;
     // restaurante.telefono = telefono.value;
@@ -516,8 +537,7 @@ function agregarRestauranteParte2() {
     // restaurante.aforo = aforo.value;
     // restaurante.desc = desc.value;
 
-    registro_restaurantes.push(restaurante);
-    localStorage.setItem("restaurantes", JSON.stringify(registro_restaurantes));
+    Restaurante.agregar_restaurante(restaurante);
     Restaurante.preparar_vista_lista_restaurantes();
 
     current_user.restaurante = registro_restaurantes[registro_restaurantes.length - 1];
@@ -566,7 +586,6 @@ function preparar_vista(seccion) {
 }
 
 function preparar_vista_restaurante(restaurante) {
-    console.log(restaurante)
     let restaurante_name = document.getElementById("restaurante_name");
     restaurante_name.innerHTML = restaurante.nombre;
 
@@ -598,11 +617,12 @@ function turn_edit(e) {
 
             //Guardar estado del nombre actual
             let restaurante_name = document.getElementById("restaurante_name");
+            let name = restaurante_name.innerHTML;
             restaurante_name.innerHTML = '';
 
             //Actualizar input y mostrarlo
             let name_input = document.getElementById("edit_restaurant_name");
-            name_input.value = restaurante_name.innerHTML;
+            name_input.value = name;
             name_input.parentElement.classList.remove("ocultar");
             break;
 
