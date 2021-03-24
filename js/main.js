@@ -217,6 +217,7 @@ class Restaurante {
             default:
                 break;
         }
+
     }
 
     static confirm_edit(e) {
@@ -254,8 +255,24 @@ class Restaurante {
             default:
                 break;
         }
+
+        Restaurante.update_Selected_Restaurante();
+
+    }
+
+    static update_Selected_Restaurante() {
+        for (var i = 0; i < registro_restaurantes.length; i++) {
+            if (registro_restaurantes[i].nombre === selected_restaurante.nombre) {
+                registro_restaurantes[i] = selected_restaurante;
+            }
+        }
+
+        //Guardar Cambios
+        localStorage.setItem("restaurantes", JSON.stringify(registro_restaurantes));
+
     }
 }
+
 let selected_restaurante;
 
 class Plato {
@@ -264,45 +281,55 @@ class Plato {
         this.desc = desc;
     }
 
-    static get_plato_from_btn_id(btn_id) {
+    static get_plato_name_from_btn_id(btn_id) {
         //Format: btn_plato_<nombreplato>
         return btn_id.split('_')[2];
     }
 
+    static get_plato_name_from_edit_btn_id(btn_id) {
+        //Format: btn_edit_plato_<nombreplato>
+        return btn_id.split('_')[3];
+    }
+
+    static get_plato_from_selected_restaurant_by_name(plato_name) {
+        for (var i = 0; i < selected_restaurante.platos.length; i++) {
+            if (selected_restaurante.platos[i].name === plato_name.replaceAll("-", " "))
+                return selected_restaurante.platos[i];
+        }
+    }
+
     static plato_to_html(plato) {
         return `<div class="container">
-                    <div class="row btn_plato" id="btn_plato_${plato.name.replaceAll(" ", '')}">
+                    <div class="row btn_plato" id="btn_plato_${plato.name.replaceAll(" ", '-')}">
                         <div class="col border-top pt-3">
-                                <h4 class="text-center px-2">${plato.name}</h4>
-                                <p class="px-2 my-auto">
+                            <div class="ocultar">
+                                <input class="form-control w-75 mx-auto" type="text" id="edit_plato_${plato.name.replaceAll(" ", '-')}_name">
+                            </div>
+                            <h4 id="plato_${plato.name.replaceAll(" ", '-')}_name" class="text-center px-2">${plato.name}</h4>
+
+                            <div class="ocultar">
+                                <input class="form-control w-75 mx-auto" type="text" id="edit_plato_${plato.name.replaceAll(" ", '-')}_desc">
+                            </div>
+                            <p id="plato_${plato.name.replaceAll(" ", '-')}_desc" class="px-2 my-auto">
                                     ${plato.desc}
                                 </p>
                         </div>
                         <div class="col">
 
-                            <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
-                            <div class="text-right">
-                                <a id="btn_plato_${plato.name.replaceAll(" ", '')}_edit_desc" href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode ocultar">
-                                    <strong> X </strong></a>
+                            <div id="plato_edit_confirm_control_${plato.name.replaceAll(" ", '-')}" class="mx-auto w-25 ocultar">
+                                <a href="javascript:void(0);" id="btn_edit_plato_${plato.name.replaceAll(" ", '-')}" class="boton button button-primary admin_mode">✔</a>
                             </div>
+                            
+                            <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
+                            <div id="plato_edit_turn_control_${plato.name.replaceAll(" ", '-')}"  class="mx-auto w-25">
+                                <a href="javascript:void(0);" id="btn_edit_plato_${plato.name.replaceAll(" ", '-')}" class="boton button button-primary admin_mode ocultar btn_edit_plato">X</a>
+                            </div>
+
                             <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
 
                         </div>
                     </div>
                 </div>`
-
-        /* Replace/refactor for edit button
-                <div class="ocultar">
-                <input class="form-control w-75 mx-auto" type="text" id="edit_restaurant_desc">
-                <div class="mx-auto w-25">
-                    <a href="javascript:void(0);" id="btn_edit_confirm_restaurant_desc" class="boton button button-primary admin_mode">✔</a>
-                </div>
-            </div>
-
-            <div class="mx-auto w-25">
-                <a href="javascript:void(0);" id="btn_edit_restaurant_desc" class="boton button button-primary admin_mode ocultar">X</a>
-            </div>
-            */
     }
 
     static platos_list_to_html(platos) {
@@ -312,23 +339,26 @@ class Plato {
             html = html.concat(Plato.plato_to_html(plato));
         });
 
-
         return html;
     }
 
     static preparar_vista_menu() {
         let div = document.getElementById("contenedor_menu");
-        console.log(selected_restaurante);
-        console.log(selected_restaurante.platos);
 
         div.innerHTML = Plato.platos_list_to_html(selected_restaurante.platos);
 
         // Agregar Eventos
         let btn_platos = document.getElementsByClassName("btn_plato");
-
         for (var i = 0; i < btn_platos.length; i++) {
             btn_platos[i].addEventListener("click", e => {
-                console.log(e.currentTarget);
+                //console.log(e.currentTarget); TODO ?
+            });
+        }
+
+        let btn_edit_platos = document.getElementsByClassName("btn_edit_plato");
+        for (var i = 0; i < btn_edit_platos.length; i++) {
+            btn_edit_platos[i].addEventListener("click", e => {
+                Plato.turn_edit(e);
             });
         }
 
@@ -337,6 +367,65 @@ class Plato {
         } else {
             display_admin_objects(false);
         }
+    }
+
+    static turn_edit(e) {
+
+        let plato_name = Plato.get_plato_name_from_edit_btn_id(e.target.id);
+
+        let edit_name_input = document.getElementById(`edit_plato_${plato_name.replaceAll(" ", '-')}_name`);
+        let edit_desc_input = document.getElementById(`edit_plato_${plato_name.replaceAll(" ", '-')}_desc`);
+        let name_h = document.getElementById(`plato_${plato_name.replaceAll(" ", '-')}_name`);
+        let desc_p = document.getElementById(`plato_${plato_name.replaceAll(" ", '-')}_desc`);
+
+        let edit_turn_control = document.getElementById(`plato_edit_turn_control_${plato_name.replaceAll(" ", '-')}`);
+        let edit_confirm_control = document.getElementById(`plato_edit_confirm_control_${plato_name.replaceAll(" ", '-')}`);
+
+        edit_name_input.value = name_h.innerText;
+        edit_desc_input.value = desc_p.innerText;
+
+        name_h.innerText = '';
+        desc_p.innerText = '';
+
+        edit_name_input.parentElement.classList.remove("ocultar");
+        edit_desc_input.parentElement.classList.remove("ocultar");
+        edit_turn_control.classList.add("ocultar");
+        edit_confirm_control.classList.remove("ocultar");
+
+        edit_confirm_control.addEventListener("click", e => {
+            Plato.confirm_edit(e);
+        });
+    }
+
+    static confirm_edit(e) {
+        let plato_name = Plato.get_plato_name_from_edit_btn_id(e.target.id);
+        let plato_to_edit = Plato.get_plato_from_selected_restaurant_by_name(plato_name);
+        let edit_name_input = document.getElementById(`edit_plato_${plato_name.replaceAll(" ", '-')}_name`);
+        let edit_desc_input = document.getElementById(`edit_plato_${plato_name.replaceAll(" ", '-')}_desc`);
+        let name_h = document.getElementById(`plato_${plato_name.replaceAll(" ", '-')}_name`);
+        let desc_p = document.getElementById(`plato_${plato_name.replaceAll(" ", '-')}_desc`);
+        let edit_turn_control = document.getElementById(`plato_edit_turn_control_${plato_name.replaceAll(" ", '-')}`);
+        let edit_confirm_control = document.getElementById(`plato_edit_confirm_control_${plato_name.replaceAll(" ", '-')}`);
+
+        //Guardar nombre para hacer búsqueda en restaurante
+        let old_name = plato_to_edit.name;
+        for (var i = 0; i < selected_restaurante.platos.length; i++) {
+            // Buscar y hacer cambios a plato
+            let plato = selected_restaurante.platos[i];
+            if (plato.name === old_name) {
+                plato.name = edit_name_input.value;
+                plato.desc = edit_desc_input.value;
+            }
+        }
+        Restaurante.update_Selected_Restaurante();
+
+        name_h.innerText = edit_name_input.value;
+        desc_p.innerText = edit_desc_input.value;
+
+        edit_name_input.parentElement.classList.add("ocultar");
+        edit_desc_input.parentElement.classList.add("ocultar");
+        edit_confirm_control.classList.add("ocultar");
+        edit_turn_control.classList.remove("ocultar");
     }
 }
 
