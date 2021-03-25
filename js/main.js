@@ -1,7 +1,6 @@
 var splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, hacer_reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2, navbar, modal_container, modal_background_container, lista_reservas;
 var btn_ingresar, btn_add_platos, btn_reset, btn_registro, btn_cont_reset, btn_confirm_login, btn_confirm_login_2, btn_confirm_login_3, btns_volver, btn_restaurantes, btn_menu, btn_reserva, btn_nav_menu, btn_confirmar_reserva_1, btn_confirmar_reserva_2, btn_form_nuevo_restaurante_continuar, btn_form_nuevo_restaurante_confirmar, btn_cerrar_sesion, btn_soy_restaurante, btn_edit_restaurant_img, btn_edit_restaurant_desc, btn_edit_confirm_restaurant_desc, btn_edit_restaurante_name, btn_edit_confirm_restaurante_name, btn_turn_agregar_plato, btn_confirmar_agregar_plato;
 var admin_objects;
-
 var secciones;
 var modal_is_open = false;
 var nav_history = [];

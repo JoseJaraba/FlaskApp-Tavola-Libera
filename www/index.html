@@ -138,13 +138,13 @@
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-date-input" class="mx-auto">Usuario</label>
-                    <input class="form-control" type="text" id="example-user-input">
+                    <input class="form-control" type="text" id="userReset">
                 </div>
             </div>
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-time-input" class="">Respuesta</label>
-                    <input class="form-control" type="text" id="security_answer">
+                    <input class="form-control" type="text" id="security_answerReset">
                 </div>
             </div>
             <div class="form-group row my-4">
@@ -161,14 +161,14 @@
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-time-input" class="">Contraseña</label>
-                    <input class="form-control" type="password" id="example-pass-input">
+                    <input class="form-control" type="password" id="passReset">
                 </div>
             </div>
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-time-input" class="">Confirmar Contraseña</label>
 
-                    <input class="form-control" type="password" id="example-pass_conf-input">
+                    <input class="form-control" type="password" id="confpassReset">
 
                 </div>
             </div>
@@ -206,66 +206,42 @@
     </div>
 
     <section id="lista_restaurantes" class="overflow-auto ocultar">
-        <h2 class=" text-center px-4 mb-4">Lista Restaurantes</h2>
-        <div class="container">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="text-center px-2">Pani Della Nonna</h4>
-                    <p class="px-2 my-auto">
-                        Los mejores panes de la ciudad.
-                    </p>
-                </div>
-                <div class="col">
-                    <p>
-                        <a id="btn_restaurante" href="javascript:void(0);">
-                            <img src="img/restaurant-logo.png" class="rounded mx-auto d-block" alt="">
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
+        <h2 class=" text-center px-4 my-4">Lista Restaurantes</h2>
 
-        <div class="container">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="text-center px-2">Karak</h4>
-                    <p class="px-2 my-auto">
-                        Comida árabe fusión.
-                    </p>
-                </div>
-                <div class="col">
-                    <img src="img/doner-kebab.png" class="rounded mx-auto d-block py-2" alt="">
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="text-center px-2">Salino</h4>
-                    <p class="px-2 my-auto">
-                        Comida del mediterráneo.
-                    </p>
-                </div>
-                <div class="col">
-                    <img src="img/food-serving.png" class="rounded mx-auto d-block" alt="">
-                </div>
-            </div>
-        </div>
+        <!-- Render dinámico -->
+        <div id="contenedor_restaurantes"></div>
     </section>
+
     <section id="restaurante" class="ocultar">
 
-        <h2 class=" text-center px-4 my-4">Pani Della Nonna</h2>
+        <h2 id="restaurante_name" class="text-center px-4 my-4">Pani Della Nonna</h2>
+
+        <div class="ocultar">
+            <input class="form-control w-75 mx-auto" type="text" id="edit_restaurant_name">
+            <div class="mx-auto w-25">
+                <a href="javascript:void(0);" id="btn_edit_confirm_restaurante_name" class="boton button button-primary admin_mode">✔</a>
+            </div>
+        </div>
+
+        <div class="mx-auto w-25">
+            <a href="javascript:void(0);" id="btn_edit_restaurante_name" class="boton button button-primary admin_mode ocultar">X</a>
+        </div>
+
         <img src="img/restaurant-logo.png" class="rounded mx-auto d-block img-restautant" alt="">
 
-        <strong><a href="javascript:void(0);"
-                class="boton volver button button-primary text-right admin_mode">X</a></strong>
+        <div>
+            <p id="restaurante_desc" class="text-center px-2">Los mejores panes de la ciudad, del forno della nonna a tu casa</p>
 
-        <p class="text-center px-2">Los mejores panes de la ciudad, del forno della nonna a tu casa</p>
+            <div class="ocultar">
+                <input class="form-control w-75 mx-auto" type="text" id="edit_restaurant_desc">
+                <div class="mx-auto w-25">
+                    <a href="javascript:void(0);" id="btn_edit_confirm_restaurant_desc" class="boton button button-primary admin_mode">✔</a>
+                </div>
+            </div>
 
-        <div class="w-100">
-            <strong class="float-right"><a href="javascript:void(0);"
-                    class="boton volver button button-primary admin_mode">X</a></strong>
+            <div class="mx-auto w-25">
+                <a href="javascript:void(0);" id="btn_edit_restaurant_desc" class="boton button button-primary admin_mode ocultar">X</a>
+            </div>
         </div>
 
 
@@ -284,87 +260,49 @@
             </div>
         </div>
     </section>
+
     <section id="menu" class="overflow-auto ocultar">
 
         <h2 class="text-center px-4 my-4">Menú</h2>
-        <!--- Contenedor normal para mostrar información, solo para usuarios y administradores de restaurante -->
-        <div class="container user_mode">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="text-center px-2">Ciabatta</h4>
-                    <p class="px-2 my-auto">
-                        Pan elaborado al horno y que tiene una capa crujiente por su exterior.
-                    </p>
-                </div>
-                <div class="col">
 
-                    <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
-                    <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
-                            <strong> X </strong></a>
-                    </div>
-                    <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
+        <!-- Render dinámico -->
+        <div id="contenedor_menu"></div>
 
-                </div>
+        <div class="form-group row my-4 admin_mode">
+            <div id="btn_turn_agregar_plato" class="col-10 mx-auto">
+                <a href=" javascript:void(0);" class="btn btn-default w-100">Agregar Plato</a>
             </div>
         </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="text-center px-2">Cannoli</h4>
-                    <p class="px-2 my-auto">
-                        Masa enrollada en forma de tubo que dentro lleva ingredientes mezclados con queso ricota.
-                    </p>
-                </div>
-                <div class="col">
-
-                    <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
-                            <strong> X </strong></a>
-                    </div>
-                    <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
-
-                </div>
+        <div id="agregar_plato_container" class="container border-top pt-3 ocultar">
+            <div class="row my-4 mx-auto w-75">
+                <input class="form-control mx-auto" type="text" id="input_agregar_plato_name" placeholder="Nombre del Plato">
             </div>
-        </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="text-center px-2">Panettone</h4>
-                    <p class="px-2 my-auto">
-                        Pan hecho con una masa de tipo brioche, relleno con pasas y frutas confitadas
-                    </p>
-                </div>
-                <div class="col">
+            <div class="row my-4 mx-auto w-75">
+                <input class="form-control mx-auto" type="text" id="input_agregar_plato_desc" placeholder="Descripción del Plato">
+            </div>
 
-                    <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
-                            <strong> X </strong></a>
-                    </div>
-                    <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
-
-                </div>
+            <div id="btn_confirmar_agregar_plato" class="col-10 mx-auto">
+                <a href=" javascript:void(0);" class="btn btn-default w-100">Confirmar</a>
             </div>
         </div>
     </section>
 
-    <!-- Version Admin de restaurante -->
-    <section id="reserva" class="ocultar">
+    <section id="hacer_reserva" class="ocultar">
 
-        <h2 class="text-center px-4 my-4">Reserva en Pani Della Nonna</h2>
+        <h2 id="title_reserva_en" class="text-center px-4 my-4">Reserva en Pani Della Nonna</h2>
         <div class="container">
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-date-input" class="">Fecha</label>
-                    <input class="form-control" type="date" value="2011-08-19" id="date">
+                    <input class="form-control" type="date" value="2011-08-19" id="date_reserva">
                 </div>
             </div>
             <div class="form-group row my-4">
                 <div class="col-10 mx-auto">
                     <label for="example-time-input" class="">Hora</label>
-                    <input class="form-control" type="time" value="13:45:00" id="hour">
+                    <input class="form-control" type="time" value="13:45:00" id="hour_reserva">
                 </div>
             </div>
             <div class="form-group row my-4">
@@ -382,68 +320,20 @@
             </div>
 
             <div class="form-group row my-4 w-100 mx-auto">
-                <a href="javascript:void(0);" id="btn_confirmar_reserva_1" class="btn btn-default w-80">Confirmar</a>
+                <a href="javascript:void(0);" id="btn_confirmar_reserva_1" class="btn btn-default w-80">Continuar</a>
             </div>
 
         </div>
     </section>
     <section id="reserva_2" class="ocultar">
 
-        <h2 class="px-4 my-4">Confirmar Reserva en Pani Della Nonna</h2>
+        <h2 id="title_confirmar_reserva" class="px-4 my-4"></h2>
 
-        <div class="container">
-            <div class="row my-2">
-                <div class="col">
-                    <strong>Fecha</strong>
-                </div>
-                <div class="col">
-                    <span class="text-left"> 12/03/2021</span>
-                </div>
-            </div>
-            <div class="row my-2">
-                <div class="col">
-                    <strong>Hora</strong>
-                </div>
-                <div class="col">
-                    <span class="text-left"> 10:00 AM</span>
-                </div>
-            </div>
-            <div class="row my-2">
-                <div class="col">
-                    <strong>Número de Persona(s)</strong>
-                </div>
-                <div class="col">
-                    <span class="text-left"> 1</span>
-                </div>
-            </div>
-        </div>
+        <div id="reserva_details_container" class="container"></div>
+
+        <div id="container_platos_reserva" class="container border mh-50 overflow-auto"></div>
 
         <div class="container border mh-50 overflow-auto">
-            <div class="row my-2">
-                <div class="col">
-                    <span>Ciabatta</span>
-                </div>
-                <div class="col text-center">
-                    <strong class="">x</strong>
-                </div>
-            </div>
-            <div class="row my-2">
-                <div class="col">
-                    <span>Cannoli</span>
-                </div>
-                <div class="col text-center">
-                    <strong class="">x</strong>
-                </div>
-            </div>
-            <div class="row my-2">
-                <div class="col">
-                    <span>Panetonne</span>
-                </div>
-                <div class="col text-center">
-                    <strong class="">x</strong>
-                </div>
-            </div>
-
             <div class="form-group row my-4 w-80 mx-auto">
                 <a href="javascript:void(0);" id="btn_confirmar_reserva_2" class="btn btn-default w-80">Confirmar</a>
             </div>
@@ -453,101 +343,8 @@
     <section id="lista_reservas" class="overflow-auto ocultar">
 
         <h2 class="text-center px-4 my-4">Reservas</h2>
-        <div class="container user_mode">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="text-center px-2"><strong>Reserva</strong></h4>
-                    <p class="px-2 my-3">
-                        <strong> Carlos Santana </strong>
-                    </p>
-                    <p class="px-2 my-3">
-                        <strong> 3 </strong> Persona(s).
-                    </p>
-                    <p class="px-2 my-2">
-                        <strong> 11/03/2021</strong> de <time>10:00am</time> a <time>12:00pm</time>
-                    </p>
-                    <div class="form-group row my-4 w-75 mx-1">
-                        <a href="javascript:void(0);" class="btn btn-optional w-100 my-4 btn_add_platos"> Ver Platos</a>
-                    </div>
-                </div>
-                <div class="col">
 
-                    <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
-                    <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
-                            <strong> X </strong></a>
-                    </div>
-                    <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="container user_mode">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="text-center px-2"><strong>Reserva</strong></h4>
-                    <p class="px-2 my-3">
-                        <strong> Linus Torvals </strong>
-                    </p>
-                    <p class="px-2 my-3">
-                        <strong> 1 </strong> Persona(s).
-                    </p>
-                    <p class="px-2 my-2">
-                        <strong> 11/03/2021</strong> de <time>10:00am</time> a <time>12:00pm</time>
-                    </p>
-                    <div class="form-group row my-4 w-75 mx-1">
-                        <a href="javascript:void(0);" class="btn btn-optional w-100 my-4 btn_add_platos"> Ver Platos</a>
-                    </div>
-                </div>
-                <div class="col">
-
-                    <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
-                    <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
-                            <strong> X </strong></a>
-                    </div>
-                    <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="container user_mode">
-            <div class="row">
-                <div class="col border-top pt-3">
-                    <h4 class="text-center px-2"><strong>Reserva</strong></h4>
-                    <p class="px-2 my-3">
-                        <strong> Carlos Santana </strong>
-                    </p>
-                    <p class="px-2 my-3">
-                        <strong> 3 </strong> Persona(s).
-                    </p>
-                    <p class="px-2 my-2">
-                        <strong> 11/03/2021</strong> de <time>10:00am</time> a <time>12:00pm</time>
-                    </p>
-                    <div class="form-group row my-4 w-75 mx-1">
-                        <a href="javascript:void(0);" class="btn btn-optional w-100 my-4 btn_add_platos"> Ver Platos</a>
-                    </div>
-                </div>
-                <div class="col">
-
-                    <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
-                    <div class="text-right">
-                        <a href="javascript:void(0);" class="boton volver button button-primary text-right admin_mode">
-                            <strong> X </strong></a>
-                    </div>
-                    <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
-
-                </div>
-
-            </div>
-
-        </div>
+        <div id="lista_reservas_container"></div>
     </section>
 
     <section id="form_nuevo_restaurante" class="ocultar">
@@ -586,8 +383,7 @@
             </div>
 
             <div class="form-group row my-4 w-80 mx-auto">
-                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_continuar"
-                    class="btn btn-default">Continuar</a>
+                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_continuar" class="btn btn-default">Continuar</a>
             </div>
         </div>
 
@@ -671,18 +467,16 @@
             <div class="form-group row my-4 ps-2">
                 <div class="col-10 mx-auto">
                     <label for="">Aforo Máximo</label>
-                    <input type="text" class="w-25 form-control" name="aforo" id="aforo" aria-describedby="helpId"
-                        placeholder="">
+                    <input type="text" class="w-25 form-control" name="aforo" id="aforo" aria-describedby="helpId" placeholder="">
                 </div>
             </div>
             <div class="form-group row my-4 w-80 mx-auto">
-                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_confirmar"
-                    class="btn btn-default w-80">Confirmar</a>
+                <a href="javascript:void(0);" id="btn_form_nuevo_restaurante_confirmar" class="btn btn-default w-80">Confirmar</a>
 
             </div>
         </div>
     </section>
-    <script src="js/main.js" language="javascript" type="text/javascript"></script>
+    <script src="js/main.min.js" language="javascript" type="text/javascript"></script>
 
 </body>
 
