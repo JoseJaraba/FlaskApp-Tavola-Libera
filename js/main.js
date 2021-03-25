@@ -1,4 +1,4 @@
-var splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2, navbar, modal_container, modal_background_container, lista_reservas;
+var splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, hacer_reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2, navbar, modal_container, modal_background_container, lista_reservas;
 var btn_ingresar, btn_add_platos, btn_reset, btn_registro, btn_cont_reset, btn_confirm_login, btn_confirm_login_2, btn_confirm_login_3, btns_volver, btn_restaurantes, btn_menu, btn_reserva, btn_nav_menu, btn_confirmar_reserva_1, btn_confirmar_reserva_2, btn_form_nuevo_restaurante_continuar, btn_form_nuevo_restaurante_confirmar, btn_cerrar_sesion, btn_soy_restaurante, btn_edit_restaurant_img, btn_edit_restaurant_desc, btn_edit_confirm_restaurant_desc, btn_edit_restaurante_name, btn_edit_confirm_restaurante_name, btn_turn_agregar_plato, btn_confirmar_agregar_plato;
 var admin_objects;
 
@@ -32,6 +32,167 @@ var date;
 var hour;
 var number_persons;
 
+class Reserva {
+    constructor(date, hour, number_persons, platos, username) {
+        this.date = date;
+        this.hour = hour;
+        this.number_persons = number_persons;
+        this.platos = platos;
+        this.user = username;
+    }
+
+    static confirmar_reserva_details_to_html(hacer_reserva) {
+        return `<div class="row my-2">
+                    <div class="col">
+                        <strong>Fecha</strong>
+                    </div>
+                    <div class="col">
+                        <span class="text-left"> ${hacer_reserva.date}</span>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <strong>Hora</strong>
+                    </div>
+                    <div class="col">
+                        <span class="text-left"> ${hacer_reserva.hour}</span>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <strong>Número de Persona(s)</strong>
+                    </div>
+                    <div class="col">
+                        <span class="text-left"> ${hacer_reserva.number_persons} </span>
+                    </div>
+                </div>
+            </div>`
+    }
+
+    static preparar_vista_lista_reservas() {
+        let lista_reservas_container = document.getElementById("lista_reservas_container");
+        let list_reservas;
+
+        //Por alguna razón la variable global de current_restaurant no me deja acceder a las reservas
+        //Así que toca traerlo del localstorage
+        let restaurantes = JSON.parse(localStorage.getItem("restaurantes"));
+        for (let i = 0; i < restaurantes.length; i++) {
+            const element = restaurantes[i];
+            if (element.nombre === current_restaurant.nombre) {
+                list_reservas = element.reservas;
+            }
+        }
+        let html = '';
+
+        if (list_reservas) {
+            for (let i = 0; i < list_reservas.length; i++) {
+
+                const reserva = list_reservas[i];
+                if (!reserva) {
+                    continue;
+                }
+
+                html += `<div class="container user_mode">
+                        <div class="row">
+                            <div class="col border-top pt-3">
+                                <h4 class="text-center px-2"><strong>Reserva</strong></h4>
+                                <p class="px-2 my-3">
+                                    <strong> ${reserva.user} </strong>
+                                </p>
+                                <p class="px-2 my-3">
+                                    <strong> ${reserva.number_persons} </strong> Persona(s).
+                                </p>
+                                <p class="px-2 my-2">
+                                    <strong> 11/03/2021</strong> de <time>${reserva.hour}</time> a <time> (no especificado) </time>
+                                </p>
+                                <div id="btn_ver_platos_reserva" class="form-group row my-4 w-75 mx-1">
+                                    <a href="javascript:void(0);" class="btn btn-optional w-100 my-4 btn_add_platos"> Ver Platos</a>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
+                            </div>
+                        </div>
+                    </div>`;
+            }
+        } else {
+            html = "No hay Reservas que mostrar";
+        }
+
+        lista_reservas_container.innerHTML = html;
+    }
+
+    static preparar_vista_hacer_reserva() {
+
+        let view_title = document.getElementById("title_reserva_en");
+        view_title.innerText = `Reserva en ${current_restaurant.nombre}`;
+
+    }
+
+    static preparar_vista_confirmar_reserva() {
+
+        if (date.value == "" || hour.value == "" || number_persons.value == "") {
+            alert("Se deben de llenar todos los campos");
+            return false;
+        }
+
+        let input_date = document.getElementById("date_reserva");
+        let input_hour = document.getElementById("hour_reserva");
+        let input_n_persons = document.getElementById("number_persons");
+
+        let new_reserva = new Reserva(
+            input_date.value,
+            input_hour.value,
+            input_n_persons.value, [new Plato("provisional 1", "Prov1Desc")],
+            current_user.name
+        );
+
+        let title_confirmar_reserva = document.getElementById("title_confirmar_reserva");
+        title_confirmar_reserva.innerText = `Confirmar Reserva en ${current_restaurant.nombre}`;
+
+        let details_container = document.getElementById("reserva_details_container");
+        details_container.innerHTML = Reserva.confirmar_reserva_details_to_html(new_reserva);
+
+        let platos_container = document.getElementById("container_platos_reserva");
+        let html = '';
+
+        //Iterar los platos de la nueva reserva
+        for (let i = 0; i < new_reserva.platos.length; i++) {
+            const plato = new_reserva.platos[i];
+            html += `<div class="row my-2">
+                        <div class="col">
+                            <span>${plato.name}</span>
+                        </div>
+                        <div class="col text-center">
+                            <strong id="${plato.name.replaceAll(" ", '-')}" class="">x</strong>
+                        </div>
+                    </div>`
+        }
+        platos_container.innerHTML = html;
+
+        if (!current_restaurant.reservas) {
+            current_restaurant.reservas = [];
+        }
+
+        current_restaurant.reservas.push(new_reserva);
+        Restaurante.local_storage_actualizar_current_restaurant();
+    }
+
+    static guardar_reserva() {
+        let new_reserva = current_restaurant.reservas[current_restaurant.reservas.length - 1];
+
+        //Guardar cambios
+        if (!current_restaurant.reservas)
+            current_restaurant.reservas = [];
+
+        if (!current_user.reservas)
+            current_user.reservas = [];
+
+        current_user.reservas.push(new_reserva);
+        Restaurante.local_storage_actualizar_current_restaurant();
+        local_storage_actualizar_current_user();
+    }
+}
 /*Objeto Restaurante*/
 var nombre;
 var direccion;
@@ -43,13 +204,13 @@ var aforo;
 var desc;
 
 class Usuario {
-    constructor(nombre, contrasena, confirmar_contrasena, pregunta_seguridad, respuesta_seguridad, reserva) {
+    constructor(nombre, contrasena, confirmar_contrasena, pregunta_seguridad, respuesta_seguridad, hacer_reserva) {
         this.name = nombre;
         this.password = contrasena;
         this.confirm_password = confirmar_contrasena;
         this.security_question = pregunta_seguridad;
         this.security_answer = respuesta_seguridad;
-        this.reserva = reserva;
+        this.hacer_reserva = hacer_reserva;
     }
 }
 
@@ -64,6 +225,7 @@ class Restaurante {
         this.aforo = aforo;
         this.desc = desc;
         this.platos = platos;
+        this.reservas = [];
     }
 
     static restaurante_to_html(restaurante) {
@@ -118,10 +280,11 @@ class Restaurante {
         let html_description_p = document.getElementById("restaurante_desc");
         html_description_p.innerHTML = restaurante.desc;
 
-        if (selected_restaurante === current_user.restaurante) {
+        if (current_restaurant === current_user.restaurante) {
             admin_login();
             display_admin_objects(true);
         } else {
+            admin_logout();
             display_admin_objects(false);
         }
     }
@@ -137,7 +300,7 @@ class Restaurante {
         for (var i = 0; i < btn_restaurantes.length; i++) {
             btn_restaurantes[i].addEventListener("click", e => {
 
-                selected_restaurante = Restaurante.get_restaurante_from_btn_id(e.currentTarget.id);
+                current_restaurant = Restaurante.get_restaurante_from_btn_id(e.currentTarget.id);
                 irA(restaurante);
             });
         }
@@ -256,25 +419,24 @@ class Restaurante {
                 break;
         }
 
-        Restaurante.update_Selected_Restaurante();
+        Restaurante.local_storage_actualizar_current_restaurant();
 
     }
 
-    static update_Selected_Restaurante() {
+    static local_storage_actualizar_current_restaurant() {
         for (var i = 0; i < registro_restaurantes.length; i++) {
-            if (registro_restaurantes[i].nombre === selected_restaurante.nombre) {
-                registro_restaurantes[i] = selected_restaurante;
+            if (registro_restaurantes[i].nombre === current_restaurant.nombre) {
+                registro_restaurantes[i] = current_restaurant;
             }
         }
 
         //Guardar Cambios
         localStorage.setItem("restaurantes", JSON.stringify(registro_restaurantes));
-
     }
 
 }
 
-let selected_restaurante;
+let current_restaurant;
 
 class Plato {
     constructor(name, desc) {
@@ -293,9 +455,9 @@ class Plato {
     }
 
     static get_plato_from_selected_restaurant_by_name(plato_name) {
-        for (var i = 0; i < selected_restaurante.platos.length; i++) {
-            if (selected_restaurante.platos[i].name === plato_name.replaceAll("-", " "))
-                return selected_restaurante.platos[i];
+        for (var i = 0; i < current_restaurant.platos.length; i++) {
+            if (current_restaurant.platos[i].name === plato_name.replaceAll("-", " "))
+                return current_restaurant.platos[i];
         }
     }
 
@@ -346,7 +508,7 @@ class Plato {
     static preparar_vista_menu() {
         let div = document.getElementById("contenedor_menu");
 
-        div.innerHTML = Plato.platos_list_to_html(selected_restaurante.platos);
+        div.innerHTML = Plato.platos_list_to_html(current_restaurant.platos);
 
         // Agregar Eventos
         let btn_platos = document.getElementsByClassName("btn_plato");
@@ -363,7 +525,7 @@ class Plato {
             });
         }
 
-        if (selected_restaurante === current_user.restaurante) {
+        if (current_restaurant === current_user.restaurante) {
             display_admin_objects(true);
         } else {
             display_admin_objects(false);
@@ -410,15 +572,15 @@ class Plato {
 
         //Guardar nombre para hacer búsqueda en restaurante
         let old_name = plato_to_edit.name;
-        for (var i = 0; i < selected_restaurante.platos.length; i++) {
+        for (var i = 0; i < current_restaurant.platos.length; i++) {
             // Buscar y hacer cambios a plato
-            let plato = selected_restaurante.platos[i];
+            let plato = current_restaurant.platos[i];
             if (plato.name === old_name) {
                 plato.name = edit_name_input.value;
                 plato.desc = edit_desc_input.value;
             }
         }
-        Restaurante.update_Selected_Restaurante();
+        Restaurante.local_storage_actualizar_current_restaurant();
 
         name_h.innerText = edit_name_input.value;
         desc_p.innerText = edit_desc_input.value;
@@ -443,9 +605,9 @@ class Plato {
 
         let new_plato = new Plato(input_agregar_plato_name.value, input_agregar_plato_desc.value);
 
-        selected_restaurante.platos.push(new_plato);
+        current_restaurant.platos.push(new_plato);
 
-        Restaurante.update_Selected_Restaurante();
+        Restaurante.local_storage_actualizar_current_restaurant();
         Plato.preparar_vista_menu();
 
         let show_controls = document.getElementById("btn_turn_agregar_plato");
@@ -477,7 +639,7 @@ function crearReferencias() {
     lista_restaurantes = document.getElementById("lista_restaurantes");
     restaurante = document.getElementById("restaurante");
     menu = document.getElementById("menu");
-    reserva = document.getElementById("reserva");
+    hacer_reserva = document.getElementById("hacer_reserva");
     reserva_2 = document.getElementById("reserva_2");
     form_nuevo_restaurante = document.getElementById("form_nuevo_restaurante");
     form_nuevo_restaurante_2 = document.getElementById("form_nuevo_restaurante_2");
@@ -485,7 +647,7 @@ function crearReferencias() {
     modal_container = document.getElementById("modal_container");
     modal_background_container = document.getElementById("modal_background_container");
     lista_reservas = document.getElementById("lista_reservas");
-    secciones = [splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2, lista_reservas];
+    secciones = [splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, hacer_reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2, lista_reservas];
 
 
     // Botones
@@ -549,8 +711,8 @@ function crearReferencias() {
     desc = document.getElementById("restaurante_desc");
 
     //-Reserva-//
-    date = document.getElementById("date");
-    hour = document.getElementById("hour");
+    date = document.getElementById("date_reserva");
+    hour = document.getElementById("hour_reserva");
     number_persons = document.getElementById("number_persons");
 
 }
@@ -571,15 +733,18 @@ function agregarEventos() {
         if (admin_mode) {
             irA(lista_reservas);
         } else {
-            irA(reserva);
+            irA(hacer_reserva);
         }
     });
     btn_confirmar_reserva_1.addEventListener("click", () => { irA(reserva_2) })
-    btn_confirmar_reserva_2.addEventListener("click", () => { agregarReserva(), irA(lista_restaurantes) })
+    btn_confirmar_reserva_2.addEventListener("click", () => {
+        Reserva.guardar_reserva();
+        irA(lista_restaurantes)
+    })
 
     btn_soy_restaurante.addEventListener("click", () => {
         if (current_user.restaurante) {
-            selected_restaurante = current_user.restaurante;
+            current_restaurant = current_user.restaurante;
             irA(restaurante);
         } else {
             irA(form_nuevo_restaurante)
@@ -589,7 +754,7 @@ function agregarEventos() {
     });
 
     btn_cerrar_sesion.addEventListener("click", () => {
-        logout();
+        admin_logout();
         irA(login_screen);
         modal();
     });
@@ -597,7 +762,6 @@ function agregarEventos() {
     btn_form_nuevo_restaurante_continuar.addEventListener("click", () => { agregarRestauranteParte1(); });
     btn_form_nuevo_restaurante_confirmar.addEventListener("click", () => {
         agregarRestauranteParte2();
-        admin_login();
         irA(lista_restaurantes);
     });
 
@@ -668,14 +832,14 @@ function irA(seccion) {
 */
 
 function navbar_is_visible(seccion) {
-    if (seccion == splash ||
-        seccion == login_screen ||
-        seccion == registro) {
+    if (seccion === splash ||
+        seccion === login_screen ||
+        seccion === registro) {
         navbar.classList.add("ocultar")
     } else {
         navbar.classList.remove("ocultar");
 
-        if (seccion == lista_restaurantes) {
+        if (seccion === lista_restaurantes) {
             btn_nav_menu.classList.remove("ocultar");
             btn_volver.classList.add("ocultar");
         } else {
@@ -696,9 +860,8 @@ function admin_login() {
     admin_mode = true;
 }
 
-function logout() {
+function admin_logout() {
     admin_mode = false;
-    irA(login_screen);
 }
 
 function agregarUsuario() {
@@ -719,7 +882,7 @@ function agregarUsuario() {
     // usuario.confirm_password = confirm_password.value;
     // usuario.security_question = security_question.value;
     // usuario.security_answer = security_answer.value;
-    // usuario.reserva = null;
+    // usuario.hacer_reserva = null;
 
     //Validación de la existencia de usuarios iguales
     for (var i in registro_usuarios) {
@@ -812,20 +975,6 @@ function editarPass() {
 
 }
 
-function agregarReserva() {
-    if (date.value == "" || hour.value == "" || number_persons.value == "") {
-        alert("Se deben de llenar todos los campos");
-        return false;
-    }
-    var reserva = {}
-    reserva.date = date.value;
-    reserva.hour = hour.value;
-    reserva.number_persons = number_persons.value;
-
-    current_user.reserva = reserva;
-    local_storage_actualizar_current_user();
-}
-
 function agregarRestauranteParte1() {
     // Validación de Campos vacios
     if (nombre.value == "" || direccion.value == "" || telefono.value == "" || ciudad.value == "") {
@@ -898,13 +1047,22 @@ function local_storage_actualizar_current_user() {
 function preparar_vista(seccion) {
     switch (seccion) {
         case restaurante:
-            Restaurante.preparar_vista_restaurante(selected_restaurante);
+            Restaurante.preparar_vista_restaurante(current_restaurant);
             break;
         case lista_restaurantes:
             Restaurante.preparar_vista_lista_restaurantes();
             break;
         case menu:
             Plato.preparar_vista_menu();
+            break;
+        case hacer_reserva:
+            Reserva.preparar_vista_hacer_reserva();
+            break;
+        case reserva_2:
+            Reserva.preparar_vista_confirmar_reserva();
+            break;
+        case lista_reservas:
+            Reserva.preparar_vista_lista_reservas();
             break;
         default:
             break;
