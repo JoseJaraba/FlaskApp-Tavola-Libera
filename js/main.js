@@ -1,5 +1,5 @@
 var splash, login_screen, registro, reset, reset_part2, lista_restaurantes, restaurante, menu, reserva, reserva_2, form_nuevo_restaurante, form_nuevo_restaurante_2, navbar, modal_container, modal_background_container, lista_reservas;
-var btn_ingresar, btn_add_platos, btn_reset, btn_registro, btn_cont_reset, btn_confirm_login, btn_confirm_login_2, btn_confirm_login_3, btns_volver, btn_restaurantes, btn_menu, btn_reserva, btn_nav_menu, btn_confirmar_reserva_1, btn_confirmar_reserva_2, btn_form_nuevo_restaurante_continuar, btn_form_nuevo_restaurante_confirmar, btn_cerrar_sesion, btn_soy_restaurante, btn_edit_restaurant_img, btn_edit_restaurant_desc, btn_edit_confirm_restaurant_desc, btn_edit_restaurante_name, btn_edit_confirm_restaurante_name;
+var btn_ingresar, btn_add_platos, btn_reset, btn_registro, btn_cont_reset, btn_confirm_login, btn_confirm_login_2, btn_confirm_login_3, btns_volver, btn_restaurantes, btn_menu, btn_reserva, btn_nav_menu, btn_confirmar_reserva_1, btn_confirmar_reserva_2, btn_form_nuevo_restaurante_continuar, btn_form_nuevo_restaurante_confirmar, btn_cerrar_sesion, btn_soy_restaurante, btn_edit_restaurant_img, btn_edit_restaurant_desc, btn_edit_confirm_restaurant_desc, btn_edit_restaurante_name, btn_edit_confirm_restaurante_name, btn_turn_agregar_plato, btn_confirmar_agregar_plato;
 var admin_objects;
 
 var secciones;
@@ -271,6 +271,7 @@ class Restaurante {
         localStorage.setItem("restaurantes", JSON.stringify(registro_restaurantes));
 
     }
+
 }
 
 let selected_restaurante;
@@ -427,6 +428,32 @@ class Plato {
         edit_confirm_control.classList.add("ocultar");
         edit_turn_control.classList.remove("ocultar");
     }
+
+    static turn_agregar_plato() {
+        let show_controls = document.getElementById("btn_turn_agregar_plato");
+        show_controls.classList.add("ocultar");
+
+        let input_controls = document.getElementById("agregar_plato_container");
+        input_controls.classList.remove("ocultar");
+    }
+
+    static confirmar_agregar_plato() {
+        let input_agregar_plato_name = document.getElementById("input_agregar_plato_name");
+        let input_agregar_plato_desc = document.getElementById("input_agregar_plato_desc");
+
+        let new_plato = new Plato(input_agregar_plato_name.value, input_agregar_plato_desc.value);
+
+        selected_restaurante.platos.push(new_plato);
+
+        Restaurante.update_Selected_Restaurante();
+        Plato.preparar_vista_menu();
+
+        let show_controls = document.getElementById("btn_turn_agregar_plato");
+        show_controls.classList.remove("ocultar");
+
+        let input_controls = document.getElementById("agregar_plato_container");
+        input_controls.classList.add("ocultar");
+    }
 }
 
 window.onload = () => {
@@ -491,6 +518,8 @@ function crearReferencias() {
     btn_edit_confirm_restaurant_desc = document.getElementById("btn_edit_confirm_restaurant_desc");
     btn_edit_restaurante_name = document.getElementById("btn_edit_restaurante_name");
     btn_edit_confirm_restaurante_name = document.getElementById("btn_edit_confirm_restaurante_name");
+    btn_turn_agregar_plato = document.getElementById("btn_turn_agregar_plato");
+    btn_confirmar_agregar_plato = document.getElementById("btn_confirmar_agregar_plato");
     //Inputs
     //-Login-//
     userLogin = document.getElementById("userLogin");
@@ -539,7 +568,6 @@ function agregarEventos() {
     btn_cont_reset.addEventListener("click", () => { editarCheck(); });
     btn_menu.addEventListener("click", () => { irA(menu); });
     btn_reserva.addEventListener("click", () => {
-        console.log("Abriendo reserva", admin_mode);
         if (admin_mode) {
             irA(lista_reservas);
         } else {
@@ -584,6 +612,12 @@ function agregarEventos() {
     });
     btn_edit_confirm_restaurante_name.addEventListener("click", e => {
         Restaurante.confirm_edit(e);
+    });
+    btn_turn_agregar_plato.addEventListener("click", () => {
+        Plato.turn_agregar_plato();
+    });
+    btn_confirmar_agregar_plato.addEventListener("click", () => {
+        Plato.confirmar_agregar_plato();
     });
     btn_nav_menu.addEventListener("click", () => { modal(); });
     modal_background_container.addEventListener("click", () => {
