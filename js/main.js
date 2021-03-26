@@ -484,7 +484,11 @@ class Plato {
                             
                             <!--- Icono de editar solo aparece si el usuario está loggeado como administrador de restaurante -->
                             <div id="plato_edit_turn_control_${plato.name.replaceAll(" ", '-')}"  class="mx-auto w-25">
-                                <a href="javascript:void(0);" id="btn_edit_plato_${plato.name.replaceAll(" ", '-')}" class="boton button button-primary admin_mode ocultar btn_edit_plato">X</a>
+                                <div  >
+                                    <a href="javascript:void(0);" id="btn_edit_plato_${plato.name.replaceAll(" ", '-')}" class="boton button button-primary admin_mode ocultar btn_edit_plato">
+                                        <img class="pencil-icon" src="img/pencil.png" alt="">
+                                    </a>
+                                </div>
                             </div>
 
                             <img src="img/dish.png" class="rounded mx-auto d-block" alt="">
@@ -533,7 +537,7 @@ class Plato {
 
     static turn_edit(e) {
 
-        let plato_name = Plato.get_plato_name_from_edit_btn_id(e.target.id);
+        let plato_name = Plato.get_plato_name_from_edit_btn_id(e.currentTarget.id);
 
         let edit_name_input = document.getElementById(`edit_plato_${plato_name.replaceAll(" ", '-')}_name`);
         let edit_desc_input = document.getElementById(`edit_plato_${plato_name.replaceAll(" ", '-')}_desc`);
@@ -583,6 +587,9 @@ class Plato {
 
         name_h.innerText = edit_name_input.value;
         desc_p.innerText = edit_desc_input.value;
+
+        edit_name_input.value = '';
+        edit_desc_input.value = '';
 
         edit_name_input.parentElement.classList.add("ocultar");
         edit_desc_input.parentElement.classList.add("ocultar");
