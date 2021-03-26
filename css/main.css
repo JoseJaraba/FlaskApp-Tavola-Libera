@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Arizonia";
-  src: url("/img/Arizonia-Regular.ttf") format("truetype");
+  src: url("../img/Arizonia-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -9,13 +9,13 @@ html {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-image: linear-gradient(#DC2F02, #E85D04, #F48C06);
+  background-image: linear-gradient(#dc2f02, #e85d04, #f48c06);
 }
 
 section {
   height: 696px;
   width: 100%;
-  color: #FFF;
+  color: #fff;
   background: none;
   overflow-x: hidden;
 }
@@ -25,20 +25,20 @@ select {
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
-input[type=text] input[type=password] {
+input[type="text"] input[type="password"] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  border: 2px solid #6A040F;
+  border: 2px solid #6a040f;
 }
-input[type=text] input[type=password] [type=submit]:hover {
-  color: #F48C06;
+input[type="text"] input[type="password"] [type="submit"]:hover {
+  color: #f48c06;
 }
 
 img {
@@ -72,13 +72,13 @@ a {
 }
 
 .btn-default {
-  background-color: #03071E;
-  color: #FFF;
+  background-color: #03071e;
+  color: #fff;
 }
 
 .btn-optional {
-  background-color: #F48C06;
-  color: #FFF;
+  background-color: #f48c06;
+  color: #fff;
 }
 
 .logo {
@@ -103,7 +103,7 @@ a {
 
 .modal-background-container {
   display: none;
-  background-color: #03071E;
+  background-color: #03071e;
   position: fixed;
   opacity: 0;
   height: 736px;
@@ -116,13 +116,13 @@ a {
 
 .modal-container {
   display: none;
-  background-color: #FAA307;
+  background-color: #faa307;
   position: fixed;
   pointer-events: none;
   height: 696px;
   max-height: 696px;
   width: 70%;
-  color: #FFF;
+  color: #fff;
   overflow: hidden;
   max-width: 70%;
 }
@@ -148,6 +148,13 @@ a {
   margin-right: auto;
 }
 
+.pencil-icon {
+  width: 32px;
+  height: 32px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .pointer_hover:hover {
   cursor: pointer;
 }
@@ -163,7 +170,7 @@ a {
 #navbar {
   height: 40px;
   max-height: 40px;
-  background-color: #E85D04;
+  background-color: #e85d04;
 }
 
 .btn_restaurante:hover {
