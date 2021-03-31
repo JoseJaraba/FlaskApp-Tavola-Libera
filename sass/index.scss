@@ -4,13 +4,13 @@ $navbar-height: 40px;
 $section-margin-left-right-value: 1%;
 $section-height: 736px;
 $section-width: 100%;
-$text-section-color: #FFF;
+$text-section-color: #fff;
 $select-width: 100%;
 $select-padding: 12px 20px;
 $select-margin: 8px 0;
 $select-border: 1px;
 $select-border-radius: 4px;
-$select-border-color: #CCC;
+$select-border-color: #ccc;
 $input-width: 100%;
 $input-padding: 12px 20px;
 $input-margin: 8px 0;
@@ -33,187 +33,278 @@ $restaurant-icon-width: 48px;
 $restaurant-icon-height: 48px;
 $close-icon-width: 48px;
 $close-icon-height: 48px;
-$splash-font-stack: 'Arizonia-Regular',
-cursive;
+$help-icon-width: 48px;
+$help-icon-height: 48px;
+$pencil-icon-width: 32px;
+$pencil-icon-height: 32px;
+$user-icon-width: 52px;
+$user-icon-height: 52px;
+$border_card: 5px;
+$splash-font-stack: "Arizonia-Regular", cursive;
 $splash-font-size: 70px;
 $splash-text-color: #000;
-$colors: ( xiketic: #03071E, dark_sienna: #370617, rosewood: #6A040F, dark_red: #9D0208, rosso_corsa: #D00000, vermilion: #DC2F02, persimmon: #E85D04, carrot_orange: #F48C06, orange_web: #FAA307, selective_yellow: #FFBA08, background: linear-gradient(#DC2F02, #E85D04, #F48C06), );
+$colors: (
+  xiketic: #03071e,
+  dark_sienna: #370617,
+  rosewood: #6a040f,
+  dark_red: #9d0208,
+  rosso_corsa: #d00000,
+  vermilion: #dc2f02,
+  persimmon: #e85d04,
+  carrot_orange: #f48c06,
+  orange_web: #faa307,
+  selective_yellow: #ffba08,
+  background: linear-gradient(#dc2f02, #e85d04, #f48c06),
+);
 @mixin font($font-family, $font-file) {
-    @font-face {
-        font-family: $font-family;
-        src: url($font-file+'.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-    }
+  @font-face {
+    font-family: $font-family;
+    src: url($font-file + ".ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
 }
 
-@include font('Arizonia', '/img/Arizonia-Regular');
+@include font("Arizonia", "/img/Arizonia-Regular");
 body,
 html {
-    margin: $margin-padding-default-value;
-    padding: $margin-padding-default-value;
-    overflow-x: hidden;
-    background-image: map-get($colors, "background");
+  margin: $margin-padding-default-value;
+  padding: $margin-padding-default-value;
+  overflow-x: hidden;
+  background-image: map-get($colors, "background");
 }
 
 section {
-    height: $section-height - $navbar-height;
-    width: $section-width;
-    color: $text-section-color;
-    background: none;
-    overflow-x: hidden;
+  height: $section-height - $navbar-height;
+  width: $section-width;
+  color: $text-section-color;
+  background: none;
+  overflow-x: hidden;
 }
 
 select {
-    width: $select-width;
-    padding: $select-padding;
-    margin: $select-margin;
-    display: inline-block;
-    border: $select-border solid $select-border-color;
-    border-radius: $select-border-radius;
-    box-sizing: border-box;
+  width: $select-width;
+  padding: $select-padding;
+  margin: $select-margin;
+  display: inline-block;
+  border: $select-border solid $select-border-color;
+  border-radius: $select-border-radius;
+  box-sizing: border-box;
 }
 
-input[type=text] input[type=password] {
-    width: $input-width;
-    padding: $input-padding;
-    margin: $input-margin;
-    box-sizing: border-box;
-    border: $input-border-bottom solid map-get($colors, "rosewood");
-    [type=submit] {
-        &:hover {
-            color: map-get($colors, "carrot_orange");
-        }
+input[type="text"] input[type="password"] {
+  width: $input-width;
+  padding: $input-padding;
+  margin: $input-margin;
+  box-sizing: border-box;
+  border: $input-border-bottom solid map-get($colors, "rosewood");
+  [type="submit"] {
+    &:hover {
+      color: map-get($colors, "carrot_orange");
     }
+  }
 }
 
 img {
-    display: block;
-    max-width: $img-max-width;
-    height: auto;
-    padding: $img-padding;
-    width: $img-width;
+  display: block;
+  max-width: $img-max-width;
+  height: auto;
+  padding: $img-padding;
+  width: $img-width;
 }
 
 h4 {
-    color: map-get($colors, "dark_sienna");
+  color: map-get($colors, "dark_sienna");
 }
 
 label {
-    color: map-get($colors, "dark_sienna");
+  color: map-get($colors, "dark_sienna");
 }
 
 a {
-    color: map-get($colors, "dark_sienna");
-    text-decoration: none;
+  color: map-get($colors, "dark_sienna");
+  text-decoration: none;
 }
 
 .ocultar {
-    display: none;
+  display: none;
 }
 
 .volver {
-    margin-left: $volver-margin-left;
-    line-height: $volver-line-height;
+  margin-left: $volver-margin-left;
+  line-height: $volver-line-height;
 }
 
 .btn-default {
-    background-color: map-get($colors, "xiketic");
-    color: $text-section-color;
+  background-color: map-get($colors, "xiketic");
+  color: $text-section-color;
 }
 
 .btn-optional {
-    background-color: map-get($colors, "carrot_orange");
-    color: $text-section-color;
+  background-color: map-get($colors, "carrot_orange");
+  color: $text-section-color;
 }
 
 .logo {
-    width: $logo-width;
-    height: $logo-height;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: $logo-margin-top;
+  width: $logo-width;
+  height: $logo-height;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: $logo-margin-top;
 }
 
 .arrow {
-    width: $arrow-width;
-    height: $arrow-height;
-    margin-left: $arrow-margin-left;
+  width: $arrow-width;
+  height: $arrow-height;
+  margin-left: $arrow-margin-left;
 }
 
 .text_splash {
-    font-family: 'Arizonia';
-    font-size: $splash-font-size;
-    color: $splash-text-color;
+  font-family: "Arizonia";
+  font-size: $splash-font-size;
+  color: $splash-text-color;
 }
 
 .modal-background-container {
-    display: none;
-    background-color: map-get($colors, "xiketic");
-    position: fixed;
-    opacity: $modal-container-opacity;
-    height: $section-height;
-    min-height: $section-height;
-    width: $section-width;
-    min-width: $section-width;
-    overflow: hidden;
-    opacity: 0.8;
+  display: none;
+  background-color: map-get($colors, "xiketic");
+  position: fixed;
+  opacity: $modal-container-opacity;
+  height: $section-height;
+  min-height: $section-height;
+  width: $section-width;
+  min-width: $section-width;
+  overflow: hidden;
+  opacity: 0.8;
 }
 
 .modal-container {
-    display: none;
-    background-color: map-get($colors, "orange_web");
-    ;
-    position: fixed;
-    pointer-events: none;
-    height: $section-height - $navbar-height;
-    max-height: $section-height - $navbar-height;
-    width: $section-width - 30%;
-    color: $text-section-color;
-    overflow: hidden;
-    max-width: $section-width - 30%;
+  display: none;
+  background-color: map-get($colors, "orange_web");
+  position: fixed;
+  pointer-events: none;
+  height: $section-height - $navbar-height;
+  max-height: $section-height - $navbar-height;
+  width: $section-width - 30%;
+  color: $text-section-color;
+  overflow: hidden;
+  max-width: $section-width - 30%;
 }
 
 .show {
-    display: block;
-    top: $navbar-height;
-    left: $modal-container-left;
-    pointer-events: auto;
+  display: block;
+  top: $navbar-height;
+  left: $modal-container-left;
+  pointer-events: auto;
 }
 
 .restaurant-icon {
-    width: $restaurant-icon-width;
-    height: $restaurant-icon-height;
-    margin-left: auto;
-    margin-right: auto;
+  width: $restaurant-icon-width;
+  height: $restaurant-icon-height;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .close-icon {
-    width: $close-icon-width;
-    height: $close-icon-height;
-    margin-left: auto;
-    margin-right: auto;
+  width: $close-icon-width;
+  height: $close-icon-height;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.help-icon {
+  width: $help-icon-width;
+  height: $help-icon-height;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pencil-icon {
+  width: $pencil-icon-width;
+  height: $pencil-icon-height;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.user-icon {
+  width: $user-icon-width;
+  height: $user-icon-height;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cards-list {
+  z-index: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.card-big {
+  text-align: center;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+
+  .card_horizontal {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.card {
+  background-color: map-get($colors, "persimmon");
+  border-radius: $border_card;
+  position: relative;
+  width: 150px;
+  margin: 10px;
+
+  &.card-big {
+    width: 85%;
+    margin: 10px auto;
+  }
+
+  .card-image {
+    border-top-left-radius: $border_card;
+    border-top-right-radius: $border_card;
+    width: 100%;
+  }
+  .card-header {
+    padding: 5px;
+    position: relative;
+    width: 100%;
+
+    .card-header-title {
+      margin: 0 0;
+      color: $text-section-color;
+    }
+
+    .card-header-meta {
+      margin: 5px;
+      color: map-get($colors, "dark_sienna");
+    }
+  }
 }
 
 .pointer_hover:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .img-restautant {
-    display: block;
-    max-width: $img-max-width;
-    height: auto;
-    padding: $img-padding;
-    width: $img-restautant-width;
+  display: block;
+  max-width: $img-max-width;
+  height: auto;
+  padding: $img-padding;
+  width: $img-restautant-width;
 }
 
 #navbar {
-    height: $navbar-height;
-    max-height: $navbar-height;
-    background-color: map-get($colors, "persimmon");
+  height: $navbar-height;
+  max-height: $navbar-height;
+  background-color: map-get($colors, "persimmon");
 }
 
 .btn_restaurante:hover {
-    cursor: pointer;
-    pointer-events: none;
+  cursor: pointer;
+  pointer-events: none;
 }

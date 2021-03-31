@@ -148,11 +148,73 @@ a {
   margin-right: auto;
 }
 
+.help-icon {
+  width: 48px;
+  height: 48px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .pencil-icon {
   width: 32px;
   height: 32px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.user-icon {
+  width: 52px;
+  height: 52px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cards-list {
+  z-index: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.card-big {
+  text-align: center;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+}
+.card-big .card_horizontal {
+  display: flex;
+  align-items: center;
+}
+
+.card {
+  background-color: #e85d04;
+  border-radius: 5px;
+  position: relative;
+  width: 150px;
+  margin: 10px;
+}
+.card.card-big {
+  width: 85%;
+  margin: 10px auto;
+}
+.card .card-image {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 100%;
+}
+.card .card-header {
+  padding: 5px;
+  position: relative;
+  width: 100%;
+}
+.card .card-header .card-header-title {
+  margin: 0 0;
+  color: #fff;
+}
+.card .card-header .card-header-meta {
+  margin: 5px;
+  color: #370617;
 }
 
 .pointer_hover:hover {
