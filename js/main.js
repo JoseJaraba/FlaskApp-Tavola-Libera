@@ -588,9 +588,6 @@ class Plato {
         name_h.innerText = edit_name_input.value;
         desc_p.innerText = edit_desc_input.value;
 
-        edit_name_input.value = '';
-        edit_desc_input.value = '';
-
         edit_name_input.parentElement.classList.add("ocultar");
         edit_desc_input.parentElement.classList.add("ocultar");
         edit_confirm_control.classList.add("ocultar");
