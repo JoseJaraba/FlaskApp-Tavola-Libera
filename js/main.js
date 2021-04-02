@@ -228,24 +228,21 @@ class Restaurante {
     }
 
     static restaurante_to_html(restaurante) {
-        let html = `<div class="container">
-                        <div class="row btn_restaurante" id="btn_restaurante_${restaurante.nombre}">
+        let html = `<div class="row card_click pointer-hover btn_restaurante" id="btn_restaurante_${restaurante.nombre}">
                             <div class="col border-top pt-3">
                                 <h4 class="text-center px-2">${restaurante.nombre}</h4>
                                 <p class="px-2 my-auto">${restaurante.desc}</p>
                             </div>
                             
                             <div class="col">
-                                <p>
-                                    <a  href="javascript:void(0);">
                                     <img src="img/restaurant-logo.png" class="rounded mx-auto d-block" alt="">
-                                    </a>
-                                </p>
                             </div>
-                        </div>
-                    </div>`;
+                        </div>`;
 
-        return html;
+        let element = document.createElement("div");
+        element.innerHTML = html;
+
+        return element;
     }
 
     static get_restaurante_from_btn_id(btn_id) {
@@ -260,16 +257,15 @@ class Restaurante {
     }
 
     static restaurantes_list_to_html() {
-        let html = '';
+        let elements = [];
         let restaurantes = JSON.parse(localStorage.getItem("restaurantes"));
 
         restaurantes.forEach(restaurante => {
 
-            html = html.concat(Restaurante.restaurante_to_html(restaurante));
+            elements.push(Restaurante.restaurante_to_html(restaurante));
         });
 
-
-        return html;
+        return elements;
     }
 
     static preparar_vista_restaurante(restaurante) {
@@ -290,18 +286,22 @@ class Restaurante {
 
     static preparar_vista_lista_restaurantes() {
         let div = document.getElementById("contenedor_restaurantes");
+        div.innerHTML = '';
+        let elements = Restaurante.restaurantes_list_to_html();
 
-        div.innerHTML = Restaurante.restaurantes_list_to_html();
+        elements.forEach(element => {
+            div.appendChild(element);
+        });
 
         // Agregar Eventos
         btn_restaurantes = document.getElementsByClassName("btn_restaurante");
 
         for (var i = 0; i < btn_restaurantes.length; i++) {
-            btn_restaurantes[i].addEventListener("click", e => {
-
+            btn_restaurantes[i].addEventListener("touchstart", e => {
                 current_restaurant = Restaurante.get_restaurante_from_btn_id(e.currentTarget.id);
                 irA(restaurante);
-            });
+            }, false);
+
         }
     }
 
@@ -516,14 +516,14 @@ class Plato {
         // Agregar Eventos
         let btn_platos = document.getElementsByClassName("btn_plato");
         for (var i = 0; i < btn_platos.length; i++) {
-            btn_platos[i].addEventListener("click", e => {
+            btn_platos[i].addEventListener("touchstart", e => {
                 //console.log(e.currentTarget); TODO ?
             });
         }
 
         let btn_edit_platos = document.getElementsByClassName("btn_edit_plato");
         for (var i = 0; i < btn_edit_platos.length; i++) {
-            btn_edit_platos[i].addEventListener("click", e => {
+            btn_edit_platos[i].addEventListener("touchstart", e => {
                 Plato.turn_edit(e);
             });
         }
@@ -558,7 +558,7 @@ class Plato {
         edit_turn_control.classList.add("ocultar");
         edit_confirm_control.classList.remove("ocultar");
 
-        edit_confirm_control.addEventListener("click", e => {
+        edit_confirm_control.addEventListener("touchstart", e => {
             Plato.confirm_edit(e);
         });
     }
@@ -658,7 +658,7 @@ function crearReferencias() {
     btn_add_platos = document.getElementsByClassName("btn_add_platos");
 
     for (var i = 0; i < btn_add_platos.length; i++) {
-        btn_add_platos[i].addEventListener("click", () => { irA(menu); });
+        btn_add_platos[i].addEventListener("touchstart", () => { irA(menu); });
     }
 
     admin_objects = document.getElementsByClassName("admin_mode");
@@ -723,31 +723,31 @@ function crearReferencias() {
 }
 
 function agregarEventos() {
-    btn_ingresar.addEventListener("click", () => {
+    btn_ingresar.addEventListener("touchstart", () => {
         if (inicioSesion())
             irA(lista_restaurantes);
     });
-    btn_reset.addEventListener("click", () => { irA(reset); });
-    btn_registro.addEventListener("click", () => { irA(registro); });
-    btn_confirm_login.addEventListener("click", () => { agregarUsuario(), irA(login_screen); });
-    btn_confirm_login_2.addEventListener("click", () => { irA(login_screen); });
-    btn_confirm_login_3.addEventListener("click", () => { editarPass(); });
-    btn_cont_reset.addEventListener("click", () => { editarCheck(); });
-    btn_menu.addEventListener("click", () => { irA(menu); });
-    btn_reserva.addEventListener("click", () => {
+    btn_reset.addEventListener("touchstart", () => { irA(reset); });
+    btn_registro.addEventListener("touchstart", () => { irA(registro); });
+    btn_confirm_login.addEventListener("touchstart", () => { agregarUsuario(), irA(login_screen); });
+    btn_confirm_login_2.addEventListener("touchstart", () => { irA(login_screen); });
+    btn_confirm_login_3.addEventListener("touchstart", () => { editarPass(); });
+    btn_cont_reset.addEventListener("touchstart", () => { editarCheck(); });
+    btn_menu.addEventListener("touchstart", () => { irA(menu); });
+    btn_reserva.addEventListener("touchstart", () => {
         if (admin_mode) {
             irA(lista_reservas);
         } else {
             irA(hacer_reserva);
         }
     });
-    btn_confirmar_reserva_1.addEventListener("click", () => { irA(reserva_2) })
-    btn_confirmar_reserva_2.addEventListener("click", () => {
+    btn_confirmar_reserva_1.addEventListener("touchstart", () => { irA(reserva_2) })
+    btn_confirmar_reserva_2.addEventListener("touchstart", () => {
         Reserva.guardar_reserva();
         irA(lista_restaurantes)
     })
 
-    btn_soy_restaurante.addEventListener("click", () => {
+    btn_soy_restaurante.addEventListener("touchstart", () => {
         if (current_user.restaurante) {
             current_restaurant = current_user.restaurante;
             irA(restaurante);
@@ -758,47 +758,47 @@ function agregarEventos() {
         turn_modal();
     });
 
-    btn_cerrar_sesion.addEventListener("click", () => {
+    btn_cerrar_sesion.addEventListener("touchstart", () => {
         admin_logout();
         irA(login_screen);
         turn_modal();
     });
 
-    btn_creditos.addEventListener("click", () => {
+    btn_creditos.addEventListener("touchstart", () => {
         irA(creditos);
         turn_modal();
     });
 
-    btn_form_nuevo_restaurante_continuar.addEventListener("click", () => { agregarRestauranteParte1(); });
-    btn_form_nuevo_restaurante_confirmar.addEventListener("click", () => {
+    btn_form_nuevo_restaurante_continuar.addEventListener("touchstart", () => { agregarRestauranteParte1(); });
+    btn_form_nuevo_restaurante_confirmar.addEventListener("touchstart", () => {
         agregarRestauranteParte2();
         irA(lista_restaurantes);
     });
 
-    btn_edit_restaurant_desc.addEventListener("click", e => {
+    btn_edit_restaurant_desc.addEventListener("touchstart", e => {
         Restaurante.turn_edit(e);
     });
-    btn_edit_confirm_restaurant_desc.addEventListener("click", e => {
+    btn_edit_confirm_restaurant_desc.addEventListener("touchstart", e => {
         Restaurante.confirm_edit(e);
     });
-    btn_edit_restaurante_name.addEventListener("click", e => {
+    btn_edit_restaurante_name.addEventListener("touchstart", e => {
         Restaurante.turn_edit(e);
     });
-    btn_edit_confirm_restaurante_name.addEventListener("click", e => {
+    btn_edit_confirm_restaurante_name.addEventListener("touchstart", e => {
         Restaurante.confirm_edit(e);
     });
-    btn_turn_agregar_plato.addEventListener("click", () => {
+    btn_turn_agregar_plato.addEventListener("touchstart", () => {
         Plato.turn_agregar_plato();
     });
-    btn_confirmar_agregar_plato.addEventListener("click", () => {
+    btn_confirmar_agregar_plato.addEventListener("touchstart", () => {
         Plato.confirmar_agregar_plato();
     });
-    btn_nav_menu.addEventListener("click", () => { turn_modal(); });
-    modal_background_container.addEventListener("click", () => {
+    btn_nav_menu.addEventListener("touchstart", () => { turn_modal(); });
+    modal_background_container.addEventListener("touchstart", () => {
         turn_modal();
     });
 
-    btn_volver.addEventListener("click", () => {
+    btn_volver.addEventListener("touchstart", () => {
         nav_history.pop();
         var last = nav_history.pop();
         if (nav_history.length > 0) {
@@ -1077,4 +1077,10 @@ function preparar_vista(seccion) {
         default:
             break;
     }
+}
+
+// Helpers
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

@@ -270,6 +270,10 @@ a {
     }
 }
 
+.card_info {
+    pointer-events: none;
+}
+
 .pointer_hover:hover {
     cursor: pointer;
 }
@@ -286,6 +290,15 @@ a {
     height: $navbar-height;
     max-height: $navbar-height;
     background-color: map-get($colors, "persimmon");
+}
+
+#navbar.sticky {
+    position: -webkit-sticky;
+    /* Safari */
+    position: sticky;
+    top: 0;
+    background-color: green;
+    border: 2px solid #4CAF50;
 }
 
 .btn_restaurante:hover {
