@@ -516,14 +516,14 @@ class Plato {
         // Agregar Eventos
         let btn_platos = document.getElementsByClassName("btn_plato");
         for (var i = 0; i < btn_platos.length; i++) {
-            btn_platos[i].addEventListener("touchstart", e => {
+            btn_platos[i].addEventListener("click", e => {
                 //console.log(e.currentTarget); TODO ?
             });
         }
 
         let btn_edit_platos = document.getElementsByClassName("btn_edit_plato");
         for (var i = 0; i < btn_edit_platos.length; i++) {
-            btn_edit_platos[i].addEventListener("touchstart", e => {
+            btn_edit_platos[i].addEventListener("click", e => {
                 Plato.turn_edit(e);
             });
         }
@@ -558,7 +558,7 @@ class Plato {
         edit_turn_control.classList.add("ocultar");
         edit_confirm_control.classList.remove("ocultar");
 
-        edit_confirm_control.addEventListener("touchstart", e => {
+        edit_confirm_control.addEventListener("click", e => {
             Plato.confirm_edit(e);
         });
     }
@@ -658,7 +658,7 @@ function crearReferencias() {
     btn_add_platos = document.getElementsByClassName("btn_add_platos");
 
     for (var i = 0; i < btn_add_platos.length; i++) {
-        btn_add_platos[i].addEventListener("touchstart", () => { irA(menu); });
+        btn_add_platos[i].addEventListener("click", () => { irA(menu); });
     }
 
     admin_objects = document.getElementsByClassName("admin_mode");
@@ -723,31 +723,31 @@ function crearReferencias() {
 }
 
 function agregarEventos() {
-    btn_ingresar.addEventListener("touchstart", () => {
+    btn_ingresar.addEventListener("click", () => {
         if (inicioSesion())
             irA(lista_restaurantes);
     });
-    btn_reset.addEventListener("touchstart", () => { irA(reset); });
-    btn_registro.addEventListener("touchstart", () => { irA(registro); });
-    btn_confirm_login.addEventListener("touchstart", () => { agregarUsuario(), irA(login_screen); });
-    btn_confirm_login_2.addEventListener("touchstart", () => { irA(login_screen); });
-    btn_confirm_login_3.addEventListener("touchstart", () => { editarPass(); });
-    btn_cont_reset.addEventListener("touchstart", () => { editarCheck(); });
-    btn_menu.addEventListener("touchstart", () => { irA(menu); });
-    btn_reserva.addEventListener("touchstart", () => {
+    btn_reset.addEventListener("click", () => { irA(reset); });
+    btn_registro.addEventListener("click", () => { irA(registro); });
+    btn_confirm_login.addEventListener("click", () => { agregarUsuario(), irA(login_screen); });
+    btn_confirm_login_2.addEventListener("click", () => { irA(login_screen); });
+    btn_confirm_login_3.addEventListener("click", () => { editarPass(); });
+    btn_cont_reset.addEventListener("click", () => { editarCheck(); });
+    btn_menu.addEventListener("click", () => { irA(menu); });
+    btn_reserva.addEventListener("click", () => {
         if (admin_mode) {
             irA(lista_reservas);
         } else {
             irA(hacer_reserva);
         }
     });
-    btn_confirmar_reserva_1.addEventListener("touchstart", () => { irA(reserva_2) })
-    btn_confirmar_reserva_2.addEventListener("touchstart", () => {
+    btn_confirmar_reserva_1.addEventListener("click", () => { irA(reserva_2) })
+    btn_confirmar_reserva_2.addEventListener("click", () => {
         Reserva.guardar_reserva();
         irA(lista_restaurantes)
     })
 
-    btn_soy_restaurante.addEventListener("touchstart", () => {
+    btn_soy_restaurante.addEventListener("click", () => {
         if (current_user.restaurante) {
             current_restaurant = current_user.restaurante;
             irA(restaurante);
@@ -758,47 +758,47 @@ function agregarEventos() {
         turn_modal();
     });
 
-    btn_cerrar_sesion.addEventListener("touchstart", () => {
+    btn_cerrar_sesion.addEventListener("click", () => {
         admin_logout();
         irA(login_screen);
         turn_modal();
     });
 
-    btn_creditos.addEventListener("touchstart", () => {
+    btn_creditos.addEventListener("click", () => {
         irA(creditos);
         turn_modal();
     });
 
-    btn_form_nuevo_restaurante_continuar.addEventListener("touchstart", () => { agregarRestauranteParte1(); });
-    btn_form_nuevo_restaurante_confirmar.addEventListener("touchstart", () => {
+    btn_form_nuevo_restaurante_continuar.addEventListener("click", () => { agregarRestauranteParte1(); });
+    btn_form_nuevo_restaurante_confirmar.addEventListener("click", () => {
         agregarRestauranteParte2();
         irA(lista_restaurantes);
     });
 
-    btn_edit_restaurant_desc.addEventListener("touchstart", e => {
+    btn_edit_restaurant_desc.addEventListener("click", e => {
         Restaurante.turn_edit(e);
     });
-    btn_edit_confirm_restaurant_desc.addEventListener("touchstart", e => {
+    btn_edit_confirm_restaurant_desc.addEventListener("click", e => {
         Restaurante.confirm_edit(e);
     });
-    btn_edit_restaurante_name.addEventListener("touchstart", e => {
+    btn_edit_restaurante_name.addEventListener("click", e => {
         Restaurante.turn_edit(e);
     });
-    btn_edit_confirm_restaurante_name.addEventListener("touchstart", e => {
+    btn_edit_confirm_restaurante_name.addEventListener("click", e => {
         Restaurante.confirm_edit(e);
     });
-    btn_turn_agregar_plato.addEventListener("touchstart", () => {
+    btn_turn_agregar_plato.addEventListener("click", () => {
         Plato.turn_agregar_plato();
     });
-    btn_confirmar_agregar_plato.addEventListener("touchstart", () => {
+    btn_confirmar_agregar_plato.addEventListener("click", () => {
         Plato.confirmar_agregar_plato();
     });
-    btn_nav_menu.addEventListener("touchstart", () => { turn_modal(); });
-    modal_background_container.addEventListener("touchstart", () => {
+    btn_nav_menu.addEventListener("click", () => { turn_modal(); });
+    modal_background_container.addEventListener("click", () => {
         turn_modal();
     });
 
-    btn_volver.addEventListener("touchstart", () => {
+    btn_volver.addEventListener("click", () => {
         nav_history.pop();
         var last = nav_history.pop();
         if (nav_history.length > 0) {
