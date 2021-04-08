@@ -13,7 +13,7 @@ html {
 }
 
 section {
-  height: 696px;
+  height: 100vh;
   width: 100%;
   color: #fff;
   background: none;
@@ -30,14 +30,14 @@ select {
   box-sizing: border-box;
 }
 
-input[type="text"] input[type="password"] {
+input[type=text] input[type=password] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
   border: 2px solid #6a040f;
 }
-input[type="text"] input[type="password"] [type="submit"]:hover {
+input[type=text] input[type=password] [type=submit]:hover {
   color: #f48c06;
 }
 
@@ -158,8 +158,9 @@ a {
 .pencil-icon {
   width: 32px;
   height: 32px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 125px;
+  position: initial;
+  display: flex;
 }
 
 .user-icon {
@@ -167,6 +168,12 @@ a {
   height: 52px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.swoosh {
+  margin-left: 250px;
+  position: initial;
+  display: flex;
 }
 
 .cards-list {
@@ -217,6 +224,10 @@ a {
   color: #370617;
 }
 
+.card_info {
+  pointer-events: none;
+}
+
 .pointer_hover:hover {
   cursor: pointer;
 }
@@ -233,6 +244,15 @@ a {
   height: 40px;
   max-height: 40px;
   background-color: #e85d04;
+}
+
+#navbar.sticky {
+  position: -webkit-sticky;
+  /* Safari */
+  position: sticky;
+  top: 0;
+  background-color: green;
+  border: 2px solid #4caf50;
 }
 
 .btn_restaurante:hover {
